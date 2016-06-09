@@ -26,7 +26,7 @@ static u16 cyclesinstat = 0;	//how many cycles have I been in this status
 
 //initialize timer0 with a 200uS rollover to trigger an ISR
 void timer0Init(void){
-    OCR0A = 199;   //set timer top to 199
+    OCR0A = timerroll;   //timerroll is defined in DOC_head.h depending on clock frequency
     TCCR0A = 0x02;  //set WGM for CTC mode with OCR0A as top
     TCCR0B = 0x02;  //set CS1 for /8 prescaler
     TIFR0 |= 0x02;  //clear the OCF0A overflow flag

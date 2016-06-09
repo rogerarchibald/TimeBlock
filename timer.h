@@ -18,6 +18,7 @@
 
 void timer0Init(void);
 void next_digit(void);
+
 void inc_seconds(void);
 void shut_r_down(void);
 void timeequals0 (void);

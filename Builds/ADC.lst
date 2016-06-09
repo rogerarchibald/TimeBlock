@@ -17,26 +17,25 @@
    7:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c ****  */ 
    8:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
    9:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include <avr/io.h>
-  10:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** //#define F_CPU 8000000
-  11:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include "DOC_head.h"
-  12:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include "adc.h"
-  13:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include <util/delay.h>
+  10:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include "DOC_head.h"
+  11:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include "adc.h"
+  12:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** #include <util/delay.h>
+  13:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   14:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   15:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   16:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
-  17:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
-  18:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** void init_ADC(void){
+  17:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** void init_ADC(void){
  120               	.LM0:
  121               	.LFBB1:
  122               	/* prologue: function */
  123               	/* frame size = 0 */
  124               	/* stack size = 0 */
  125               	.L__stack_usage = 0
-  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** ADMUX = 0xC7;	//C is to select the internal 1.1V reference, 7 selects the input
+  18:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** ADMUX = 0xC7;	//C is to select the internal 1.1V reference, 7 selects the input
  127               	.LM1:
  128 0000 87EC      		ldi r24,lo8(-57)
  129 0002 8093 7C00 		sts 124,r24
-  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** ADCSRA = 0x06;	//set prescaler to /64
+  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** ADCSRA = 0x06;	//set prescaler to /64
  131               	.LM2:
  132 0006 86E0      		ldi r24,lo8(6)
  133 0008 8093 7A00 		sts 122,r24
@@ -44,23 +43,23 @@
  136               	.Lscope1:
  138               	.global	read_ADC
  140               	read_ADC:
-  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** }
+  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** }
+  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   22:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   23:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
   24:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
-  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 
-  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** uint16_t read_ADC (void){
+  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** uint16_t read_ADC (void){
  142               	.LM3:
  143               	.LFBB2:
  144               	/* prologue: function */
  145               	/* frame size = 0 */
  146               	/* stack size = 0 */
  147               	.L__stack_usage = 0
-  27:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	uint32_t voltval = 0;
-  28:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTC |= 0x10;	//turn on divider return FET
+  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	uint32_t voltval = 0;
+  27:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTC |= 0x10;	//turn on divider return FET
  149               	.LM4:
  150 000e 449A      		sbi 0x8,4
-  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTD = 0;	//turn off all BJT's so that in the next line this delay of 60mS doesn't look like a gl
+  28:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTD = 0;	//turn off all BJT's so that in the next line this delay of 60mS doesn't look like a gl
  152               	.LM5:
  153 0010 1BB8      		out 0xb,__zero_reg__
  154               	.LBB4:
@@ -230,87 +229,84 @@
  162:/usr/local/Cellar/avr-gcc/4.9.3/avr/include/util/delay.h **** 
  163:/usr/local/Cellar/avr-gcc/4.9.3/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
  159               	.LM6:
- 160 0012 2FEF      		ldi r18,lo8(95999)
- 161 0014 86E7      		ldi r24,hi8(95999)
- 162 0016 91E0      		ldi r25,hlo8(95999)
- 163 0018 2150      		1: subi r18,1
- 164 001a 8040      		sbci r24,0
- 165 001c 9040      		sbci r25,0
- 166 001e 01F4      		brne 1b
- 167 0020 00C0      		rjmp .
- 168 0022 0000      		nop
- 169               	.LBE5:
- 170               	.LBE4:
- 172               	.Ltext2:
-  30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	_delay_ms(60);	//discharge the filter cap down to the divider level (25mS seems about right, 30 is
-  31:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
- 174               	.LM7:
- 175 0024 8091 7A00 		lds r24,122
- 176 0028 8061      		ori r24,lo8(16)
- 177 002a 8093 7A00 		sts 122,r24
-  32:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	ADCSRA |= 0xC0; //enable ADC and start conversion
- 179               	.LM8:
- 180 002e 8091 7A00 		lds r24,122
- 181 0032 806C      		ori r24,lo8(-64)
- 182 0034 8093 7A00 		sts 122,r24
- 183               	.L3:
-  33:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	while(!(ADCSRA & 0x10)){}	//kill time while waiting for conversion to end
- 185               	.LM9:
- 186 0038 8091 7A00 		lds r24,122
- 187 003c 84FF      		sbrs r24,4
- 188 003e 00C0      		rjmp .L3
-  34:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTC &= ~(0x10);	//kill the FET to conserve battery
- 190               	.LM10:
- 191 0040 4498      		cbi 0x8,4
-  35:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval |= ADCL;
- 193               	.LM11:
- 194 0042 8091 7800 		lds r24,120
-  36:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval |= (ADCH << 8);
- 196               	.LM12:
- 197 0046 2091 7900 		lds r18,121
- 198 004a 30E0      		ldi r19,0
- 199 004c 322F      		mov r19,r18
- 200 004e 2227      		clr r18
- 201 0050 A901      		movw r20,r18
- 202 0052 6627      		clr r22
- 203 0054 57FD      		sbrc r21,7
- 204 0056 6095      		com r22
- 205 0058 762F      		mov r23,r22
- 206 005a 9A01      		movw r18,r20
- 207 005c AB01      		movw r20,r22
- 208 005e 282B      		or r18,r24
-  37:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval *= 322;	//convert ADC value to hundreds of mV when we're running a /3 divider
- 210               	.LM13:
- 211 0060 A2E4      		ldi r26,lo8(66)
- 212 0062 B1E0      		ldi r27,lo8(1)
- 213 0064 0E94 0000 		call __muluhisi3
-  38:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval /= 100;	//convert ADC value to mV
- 215               	.LM14:
- 216 0068 24E6      		ldi r18,lo8(100)
- 217 006a 30E0      		ldi r19,0
- 218 006c 40E0      		ldi r20,0
- 219 006e 50E0      		ldi r21,0
- 220 0070 0E94 0000 		call __udivmodsi4
-  39:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	
-  40:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	return voltval;	
+ 160 0012 8FE5      		ldi r24,lo8(-5537)
+ 161 0014 9AEE      		ldi r25,hi8(-5537)
+ 162 0016 0197      		1: sbiw r24,1
+ 163 0018 01F4      		brne 1b
+ 164 001a 00C0      		rjmp .
+ 165 001c 0000      		nop
+ 166               	.LBE5:
+ 167               	.LBE4:
+ 169               	.Ltext2:
+  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	_delay_ms(60);	//discharge the filter cap down to the divider level (25mS seems about right, 30 is
+  30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
+ 171               	.LM7:
+ 172 001e 8091 7A00 		lds r24,122
+ 173 0022 8061      		ori r24,lo8(16)
+ 174 0024 8093 7A00 		sts 122,r24
+  31:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	ADCSRA |= 0xC0; //enable ADC and start conversion
+ 176               	.LM8:
+ 177 0028 8091 7A00 		lds r24,122
+ 178 002c 806C      		ori r24,lo8(-64)
+ 179 002e 8093 7A00 		sts 122,r24
+ 180               	.L3:
+  32:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	while(!(ADCSRA & 0x10)){}	//kill time while waiting for conversion to end
+ 182               	.LM9:
+ 183 0032 8091 7A00 		lds r24,122
+ 184 0036 84FF      		sbrs r24,4
+ 185 0038 00C0      		rjmp .L3
+  33:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	PORTC &= ~(0x10);	//kill the FET to conserve battery
+ 187               	.LM10:
+ 188 003a 4498      		cbi 0x8,4
+  34:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval |= ADCL;
+ 190               	.LM11:
+ 191 003c 8091 7800 		lds r24,120
+  35:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval |= (ADCH << 8);
+ 193               	.LM12:
+ 194 0040 2091 7900 		lds r18,121
+ 195 0044 30E0      		ldi r19,0
+ 196 0046 322F      		mov r19,r18
+ 197 0048 2227      		clr r18
+ 198 004a A901      		movw r20,r18
+ 199 004c 6627      		clr r22
+ 200 004e 57FD      		sbrc r21,7
+ 201 0050 6095      		com r22
+ 202 0052 762F      		mov r23,r22
+ 203 0054 9A01      		movw r18,r20
+ 204 0056 AB01      		movw r20,r22
+ 205 0058 282B      		or r18,r24
+  36:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval *= 322;	//convert ADC value to hundreds of mV when we're running a /3 divider
+ 207               	.LM13:
+ 208 005a A2E4      		ldi r26,lo8(66)
+ 209 005c B1E0      		ldi r27,lo8(1)
+ 210 005e 0E94 0000 		call __muluhisi3
+  37:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	voltval /= 100;	//convert ADC value to mV
+ 212               	.LM14:
+ 213 0062 24E6      		ldi r18,lo8(100)
+ 214 0064 30E0      		ldi r19,0
+ 215 0066 40E0      		ldi r20,0
+ 216 0068 50E0      		ldi r21,0
+ 217 006a 0E94 0000 		call __udivmodsi4
+  38:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	
+  39:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	return voltval;	
+  40:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	
   41:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	
-  42:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	
-  43:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** }...
- 222               	.LM15:
- 223 0074 C901      		movw r24,r18
- 224 0076 0895      		ret
- 226               	.Lscope2:
- 228               	.Letext0:
- 229               		.ident	"GCC: (GNU) 4.9.3"
+  42:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** }...
+ 219               	.LM15:
+ 220 006e C901      		movw r24,r18
+ 221 0070 0895      		ret
+ 223               	.Lscope2:
+ 225               	.Letext0:
+ 226               		.ident	"GCC: (GNU) 4.9.3"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ADC.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:118    .text:0000000000000000 init_ADC
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc5jDmln.s:140    .text:000000000000000e read_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:118    .text:0000000000000000 init_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:140    .text:000000000000000e read_ADC
 
 UNDEFINED SYMBOLS
 __muluhisi3

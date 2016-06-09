@@ -42,9 +42,9 @@
  126               	/* frame size = 0 */
  127               	/* stack size = 0 */
  128               	.L__stack_usage = 0
-  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     OCR0A = 199;   //set timer top to 199
+  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     OCR0A = timerroll;   //timerroll is defined in DOC_head.h depending on clock frequency
  130               	.LM1:
- 131 0000 87EC      		ldi r24,lo8(-57)
+ 131 0000 83E6      		ldi r24,lo8(99)
  132 0002 87BD      		out 0x27,r24
   30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TCCR0A = 0x02;  //set WGM for CTC mode with OCR0A as top
  134               	.LM2:
@@ -828,29 +828,29 @@
  835               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 timer.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:121    .text:0000000000000000 timer0Init
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:156    .text:0000000000000018 next_digit
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:797    .bss:0000000000000008 placeholder
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:799    .bss:0000000000000009 digits
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:805    .data:0000000000000002 numbers
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:790    .data:0000000000000001 clockstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:264    .text:00000000000000a2 inc_seconds
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:337    .text:00000000000000fa timeequals0
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:361    .text:0000000000000108 shut_r_down
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:782    .bss:0000000000000005 fallarm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:786    .data:0000000000000000 turnoff_arm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:780    .bss:0000000000000003 cyclesinstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:457    .text:0000000000000166 display_batt
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:486    .text:000000000000017c display_volts
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:530    .text:00000000000001ae __vector_14
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:795    .bss:0000000000000007 butstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:793    .bss:0000000000000006 laststat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccb8cFDH.s:778    .bss:0000000000000001 two_milliseconds.1759
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:121    .text:0000000000000000 timer0Init
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:156    .text:0000000000000018 next_digit
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:797    .bss:0000000000000008 placeholder
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:799    .bss:0000000000000009 digits
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:805    .data:0000000000000002 numbers
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:790    .data:0000000000000001 clockstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:264    .text:00000000000000a2 inc_seconds
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:337    .text:00000000000000fa timeequals0
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:361    .text:0000000000000108 shut_r_down
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:782    .bss:0000000000000005 fallarm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:786    .data:0000000000000000 turnoff_arm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:780    .bss:0000000000000003 cyclesinstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:457    .text:0000000000000166 display_batt
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:486    .text:000000000000017c display_volts
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:530    .text:00000000000001ae __vector_14
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:795    .bss:0000000000000007 butstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:793    .bss:0000000000000006 laststat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccbLjqp4.s:778    .bss:0000000000000001 two_milliseconds.1759
                              .bss:0000000000000000 two_hun_mics.1758
 
 UNDEFINED SYMBOLS

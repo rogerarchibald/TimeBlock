@@ -7,7 +7,6 @@
  */ 
 
 #include <avr/io.h>
-//#define F_CPU 8000000
 #include "DOC_head.h"
 #include "adc.h"
 #include <util/delay.h>

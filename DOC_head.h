@@ -9,8 +9,23 @@
 #ifndef DOC_HEAD_H_
 #define DOC_HEAD_H_
 
+#define freq4M
 
 #include <stdio.h>
+
+#ifdef freq8M
+
+#define F_CPU 8000000
+#define timerroll 199
+
+#endif
+
+#ifdef freq4M
+
+#define F_CPU 4000000
+#define timerroll 99
+
+#endif
 
 
 #define intensity 2    //Value from 0-9 that determines the intensity of the LEDs
