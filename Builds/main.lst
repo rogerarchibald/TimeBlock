@@ -1,0 +1,212 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 119               	.global	__vector_3
+ 121               	__vector_3:
+   1:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** /*
+   2:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  * Doug-O-Clock.c
+   3:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  *
+   4:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  *
+   5:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  *This is the first rev of firmware to drive the timer for Doug's plane-clock.  It's a 4x7-Segment 
+   6:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  *The inputs are button and an analog input to give an indication of battery voltage (could also us
+   7:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  *
+   8:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  * Created: 5/23/16 7:35:33 PM
+   9:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  * Author : Roger
+  10:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****  */ 
+  11:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  12:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  13:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include <avr/io.h>
+  14:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include "DOC_head.h"
+  15:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include <avr/interrupt.h>
+  16:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include <avr/sleep.h>
+  17:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include "timer.h"
+  18:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** #include "adc.h"
+  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** volatile u8 gotosleep = 0;
+  22:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  23:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  24:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** //servicing the ISR for button press PCINT0 to wake things up, nothing to do here.
+  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** ISR(PCINT0_vect){
+ 123               	.LM0:
+ 124               	.LFBB1:
+ 125 0000 1F92      		push r1
+ 126 0002 0F92      		push r0
+ 127 0004 0FB6      		in r0,__SREG__
+ 128 0006 0F92      		push r0
+ 129 0008 1124      		clr __zero_reg__
+ 130 000a 8F93      		push r24
+ 131 000c 9F93      		push r25
+ 132               	/* prologue: Signal */
+ 133               	/* frame size = 0 */
+ 134               	/* stack size = 5 */
+ 135               	.L__stack_usage = 5
+  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	asm ("nop");
+ 137               	.LM1:
+ 138               	/* #APP */
+ 139               	 ;  26 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/
+ 140 000e 0000      		nop
+ 141               	 ;  0 "" 2
+  27:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	tog_tp1
+ 143               	.LM2:
+ 144               	/* #NOAPP */
+ 145 0010 95B1      		in r25,0x5
+ 146 0012 82E0      		ldi r24,lo8(2)
+ 147 0014 8927      		eor r24,r25
+ 148 0016 85B9      		out 0x5,r24
+ 149               	/* epilogue start */
+  28:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** }
+ 151               	.LM3:
+ 152 0018 9F91      		pop r25
+ 153 001a 8F91      		pop r24
+ 154 001c 0F90      		pop r0
+ 155 001e 0FBE      		out __SREG__,r0
+ 156 0020 0F90      		pop r0
+ 157 0022 1F90      		pop r1
+ 158 0024 1895      		reti
+ 160               	.Lscope1:
+ 161               		.section	.text.startup,"ax",@progbits
+ 163               	.global	main
+ 165               	main:
+  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  31:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  32:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** int main(void)
+  33:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** { 
+ 167               	.LM4:
+ 168               	.LFBB2:
+ 169               	/* prologue: function */
+ 170               	/* frame size = 0 */
+ 171               	/* stack size = 0 */
+ 172               	.L__stack_usage = 0
+  34:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  35:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** DDRD = 0xFF;	//portD drives the digits of the 7-segment display
+ 174               	.LM5:
+ 175 0000 8FEF      		ldi r24,lo8(-1)
+ 176 0002 8AB9      		out 0xa,r24
+  36:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** PORTD = 0;		//initially kill output
+ 178               	.LM6:
+ 179 0004 1BB8      		out 0xb,__zero_reg__
+  37:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** DDRC = 0x1F;	//PC4 = divider_control, PC0-3 = pass p-fets for digits
+ 181               	.LM7:
+ 182 0006 8FE1      		ldi r24,lo8(31)
+ 183 0008 87B9      		out 0x7,r24
+  38:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** PORTC = 0;
+ 185               	.LM8:
+ 186 000a 18B8      		out 0x8,__zero_reg__
+  39:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** DDRB = 0xEE;	//PB0 = button_in, PB1 = TP1
+ 188               	.LM9:
+ 189 000c 8EEE      		ldi r24,lo8(-18)
+ 190 000e 84B9      		out 0x4,r24
+  40:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** PORTB = 0;		//all off.	
+ 192               	.LM10:
+ 193 0010 15B8      		out 0x5,__zero_reg__
+  41:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** PCMSK0 |= 0x01;	//unmask PCINT0 which is the button.
+ 195               	.LM11:
+ 196 0012 8091 6B00 		lds r24,107
+ 197 0016 8160      		ori r24,lo8(1)
+ 198 0018 8093 6B00 		sts 107,r24
+  42:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** timer0Init();
+ 200               	.LM12:
+ 201 001c 0E94 0000 		call timer0Init
+  43:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** init_ADC();
+ 203               	.LM13:
+ 204 0020 0E94 0000 		call init_ADC
+  44:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** sei();	
+ 206               	.LM14:
+ 207               	/* #APP */
+ 208               	 ;  44 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/
+ 209 0024 7894      		sei
+ 210               	 ;  0 "" 2
+  45:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** set_sleep_mode(SLEEP_MODE_IDLE);
+ 212               	.LM15:
+ 213               	/* #NOAPP */
+ 214 0026 83B7      		in r24,0x33
+ 215 0028 817F      		andi r24,lo8(-15)
+ 216 002a 83BF      		out 0x33,r24
+ 217               	.L3:
+  46:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  47:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  48:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  49:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  50:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  51:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  52:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****   
+  53:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****     while (1) 
+  54:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****     {
+  55:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	sleep_mode();	
+ 219               	.LM16:
+ 220 002c 83B7      		in r24,0x33
+ 221 002e 8160      		ori r24,lo8(1)
+ 222 0030 83BF      		out 0x33,r24
+ 223               	/* #APP */
+ 224               	 ;  55 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/
+ 225 0032 8895      		sleep
+ 226               		
+ 227               	 ;  0 "" 2
+ 228               	/* #NOAPP */
+ 229 0034 83B7      		in r24,0x33
+ 230 0036 8E7F      		andi r24,lo8(-2)
+ 231 0038 83BF      		out 0x33,r24
+  56:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 		if(gotosleep){	//go to sleep is a flag that gets set wehn it's time to go to sleep.  
+ 233               	.LM17:
+ 234 003a 8091 0000 		lds r24,gotosleep
+ 235 003e 8823      		tst r24
+ 236 0040 01F0      		breq .L3
+  57:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 			shut_r_down();
+ 238               	.LM18:
+ 239 0042 0E94 0000 		call shut_r_down
+ 240 0046 00C0      		rjmp .L3
+ 242               	.Lscope2:
+ 243               		.text
+ 246               	.global	setsleepstat
+ 248               	setsleepstat:
+  58:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 		}
+  59:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	
+  60:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c ****     }
+  61:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  62:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** }	//end of main
+  63:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  64:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 
+  65:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** void setsleepstat (u8 newstat){
+ 250               	.LM19:
+ 251               	.LFBB3:
+ 252               	/* prologue: function */
+ 253               	/* frame size = 0 */
+ 254               	/* stack size = 0 */
+ 255               	.L__stack_usage = 0
+  66:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/main.c **** 	gotosleep = newstat;
+ 257               	.LM20:
+ 258 0026 8093 0000 		sts gotosleep,r24
+ 259 002a 0895      		ret
+ 261               	.Lscope3:
+ 262               	.global	gotosleep
+ 263               		.section .bss
+ 266               	gotosleep:
+ 267 0000 00        		.zero	1
+ 269               		.text
+ 271               	.Letext0:
+ 272               		.ident	"GCC: (GNU) 4.9.3"
+ 273               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:121    .text:0000000000000000 __vector_3
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:165    .text.startup:0000000000000000 main
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:266    .bss:0000000000000000 gotosleep
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc2bNijM.s:248    .text:0000000000000026 setsleepstat
+
+UNDEFINED SYMBOLS
+timer0Init
+init_ADC
+shut_r_down
+__do_clear_bss
