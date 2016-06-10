@@ -300,13 +300,13 @@
  226               		.ident	"GCC: (GNU) 4.9.3"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ADC.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:118    .text:0000000000000000 init_ADC
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccaGm1zp.s:140    .text:000000000000000e read_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:118    .text:0000000000000000 init_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc8uyd8V.s:140    .text:000000000000000e read_ADC
 
 UNDEFINED SYMBOLS
 __muluhisi3

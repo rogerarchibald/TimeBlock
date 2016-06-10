@@ -18,7 +18,7 @@ static u8 digits[] = {0,0,0,0}; //these are actually the values of the 4 digits.
 static u8 placeholder = 0;  //will cycle from 0-3 and repeat.  Will determine which of the 4 P-ch FETS for the anodes is active.
 static u8 butstat = 0;	//will use this as a boolean to check the stat of the button.
 static u8 laststat = 0;	//will use this to check current vs previous status of the button to know if it has changed
-static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set this hi.  Will prevent bounce by 
+static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set this hi.  it's my debouncer
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
 static u16 cyclesinstat = 0;	//how many cycles have I been in this status
@@ -55,7 +55,6 @@ ISR(TIMER0_COMPA_vect)	{
 		clockstat = clockrun;
 	}	//if the button is hi and it's been hi for 50 cycles (50 x 200uS = 10mS), set it up so the next falling edge will do something
 	if(fallarm && !butstat){		//if the button was armed and a falling edge was detected
-	//	tog_tp1
 		fallarm = 0;
 		timeequals0();
 		clockstat = clockoff;
@@ -76,7 +75,7 @@ ISR(TIMER0_COMPA_vect)	{
     }   //end of checking intensity
     
     if (two_hun_mics >= 10){
-        next_digit();   //need to write function to cycle the 4 LSB's of PORTC to ensure that we're walking through
+        next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking through
         two_hun_mics = 0;   //reset this value for next round
         two_milliseconds ++;    //if I've made it through 20 cycles of 100uS, increment the 2mS cntr...Every 500 of these will increment the second count
 		
@@ -84,17 +83,24 @@ ISR(TIMER0_COMPA_vect)	{
     
 	
     if(two_milliseconds >=500){
-			if(clockstat == clockrun){
-				inc_seconds();  
-			}else if (clockstat == batdisp){	//end of if clockstat = clockrun
-				display_volts (read_ADC());
-				clockstat = voltdisp; 
-			}else if(clockstat == voltdisp){
-				if(butstat && (cyclesinstat >= 0x2710)){	//if the button is released and has been for more than two seconds, set flag to put this to sleep.  Will set a trigger to wake on button change, so need to ensure it's off
-				setsleepstat(1);
-				}
-				}
-		
+        
+      //  what to do every second will vary depending on status of 'clockstat'
+         switch (clockstat){
+         case clockrun:
+            inc_seconds(); //if we get to the 1 second rollover and we're in clockrun mode, increment seconds counter
+         break;
+         
+          case batdisp:
+            display_volts (read_ADC()); //get the ADC value of the battery voltage and splash it up
+            clockstat = voltdisp;  //go to the mode where I'l wait for the button to have been released for 2 seconds, and then start shutting it down
+         break;
+         
+         case voltdisp:
+            if(butstat && (cyclesinstat >= 0x2710)){
+            setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it down
+         }
+         }  //end of switch/case
+        
 		two_milliseconds = 0;
     }
 	
@@ -122,7 +128,7 @@ void next_digit(void){
 		break;
 		
 		case voltdisp:
-		if (placeholder == 2){
+		if (placeholder == 2){  //while displaying the voltage, set the lower dot of hte colon to be a cedimal point
 			PORTD |= 0x08;
 		}
 		break;
@@ -188,7 +194,7 @@ void shut_r_down(void){
 	TCCR0B |= 0x02;	//re-enable clock
 }
 
-//this just puts 'batt' across the display.  Will be called for 1 second prior to displaying the actual voltage.
+//this just puts 'batt' across the display.  Will be called for 1 second prior to displaying the actual voltage.  index points 11-14 of digits are the characters to write 'batt'
 void display_batt(void){
 		for (int i = 11; i < 15; i ++){
 			digits[(i-11)] = i;
@@ -199,7 +205,7 @@ void display_batt(void){
 
 void display_volts (u16 adval){
 
-//this is will display the voltage...want to play with displaying the 'batt'	
+//this is will display the voltage.
 adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colon as decimal place 
 	digits[0] = adval % 10;
 	adval /= 10;

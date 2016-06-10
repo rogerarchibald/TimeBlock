@@ -313,7 +313,7 @@ void next_digit(void){
 		break;
 		
 		case voltdisp:
-		if (placeholder == 2){
+		if (placeholder == 2){  //while displaying the voltage, set the lower dot of hte colon to be a cedimal point
  1ba:	80 91 1b 01 	lds	r24, 0x011B
  1be:	82 30       	cpi	r24, 0x02	; 2
  1c0:	09 f4       	brne	.+2      	; 0x1c4 <next_digit+0x68>
@@ -484,7 +484,7 @@ void shut_r_down(void){
 000002aa <display_batt>:
 }
 
-//this just puts 'batt' across the display.  Will be called for 1 second prior to displaying the actual voltage.
+//this just puts 'batt' across the display.  Will be called for 1 second prior to displaying the actual voltage.  index points 11-14 of digits are the characters to write 'batt'
 void display_batt(void){
 		for (int i = 11; i < 15; i ++){
 			digits[(i-11)] = i;
@@ -505,7 +505,7 @@ void display_batt(void){
 
 void display_volts (u16 adval){
 
-//this is will display the voltage...want to play with displaying the 'batt'	
+//this is will display the voltage.
 adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colon as decimal place 
  2c0:	2a e0       	ldi	r18, 0x0A	; 10
  2c2:	30 e0       	ldi	r19, 0x00	; 0
@@ -630,19 +630,19 @@ adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colo
  3ee:	91 40       	sbci	r25, 0x01	; 1
  3f0:	28 f1       	brcs	.+74     	; 0x43c <__vector_14+0x14a>
  3f2:	80 91 01 01 	lds	r24, 0x0101
- 3f6:	81 30       	cpi	r24, 0x01	; 1
- 3f8:	19 f4       	brne	.+6      	; 0x400 <__vector_14+0x10e>
- 3fa:	0e 94 f3 00 	call	0x1e6	; 0x1e6 <inc_seconds>
- 3fe:	1a c0       	rjmp	.+52     	; 0x434 <__vector_14+0x142>
- 400:	82 30       	cpi	r24, 0x02	; 2
- 402:	41 f4       	brne	.+16     	; 0x414 <__vector_14+0x122>
- 404:	0e 94 5a 00 	call	0xb4	; 0xb4 <read_ADC>
- 408:	0e 94 60 01 	call	0x2c0	; 0x2c0 <display_volts>
- 40c:	83 e0       	ldi	r24, 0x03	; 3
- 40e:	80 93 01 01 	sts	0x0101, r24
- 412:	10 c0       	rjmp	.+32     	; 0x434 <__vector_14+0x142>
- 414:	83 30       	cpi	r24, 0x03	; 3
- 416:	71 f4       	brne	.+28     	; 0x434 <__vector_14+0x142>
+ 3f6:	82 30       	cpi	r24, 0x02	; 2
+ 3f8:	39 f0       	breq	.+14     	; 0x408 <__vector_14+0x116>
+ 3fa:	83 30       	cpi	r24, 0x03	; 3
+ 3fc:	69 f0       	breq	.+26     	; 0x418 <__vector_14+0x126>
+ 3fe:	81 30       	cpi	r24, 0x01	; 1
+ 400:	c9 f4       	brne	.+50     	; 0x434 <__vector_14+0x142>
+ 402:	0e 94 f3 00 	call	0x1e6	; 0x1e6 <inc_seconds>
+ 406:	16 c0       	rjmp	.+44     	; 0x434 <__vector_14+0x142>
+ 408:	0e 94 5a 00 	call	0xb4	; 0xb4 <read_ADC>
+ 40c:	0e 94 60 01 	call	0x2c0	; 0x2c0 <display_volts>
+ 410:	83 e0       	ldi	r24, 0x03	; 3
+ 412:	80 93 01 01 	sts	0x0101, r24
+ 416:	0e c0       	rjmp	.+28     	; 0x434 <__vector_14+0x142>
  418:	80 91 1a 01 	lds	r24, 0x011A
  41c:	88 23       	and	r24, r24
  41e:	51 f0       	breq	.+20     	; 0x434 <__vector_14+0x142>

@@ -195,15 +195,15 @@
  273               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:121    .text:0000000000000000 __vector_3
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:165    .text.startup:0000000000000000 main
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:266    .bss:0000000000000000 gotosleep
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccSzhSZ7.s:248    .text:0000000000000026 setsleepstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:121    .text:0000000000000000 __vector_3
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:165    .text.startup:0000000000000000 main
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:266    .bss:0000000000000000 gotosleep
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccGr7OMU.s:248    .text:0000000000000026 setsleepstat
 
 UNDEFINED SYMBOLS
 timer0Init
