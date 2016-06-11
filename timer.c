@@ -12,6 +12,7 @@
 #include "DOC_head.h"
 #include "timer.h"
 #include "adc.h"
+#include "intensity_cntrl.h"
 
 u8 numbers[] = {0xD7, 0x14, 0xE6, 0xB6, 0x35, 0xB3, 0xF3, 0x16, 0xF7, 0xB7, 0x00, 0xE1, 0xE1, 0xF0, 0xF1};    //array corresponding to bitfields for values 0-9.  index 10 is all zeros. 11-14 are letters 'batt'
 static u8 digits[] = {0,0,0,0}; //these are actually the values of the 4 digits.  Will use these to point to values in array above to drive the LED cathode bjt's
@@ -21,6 +22,7 @@ static u8 laststat = 0;	//will use this to check current vs previous status of t
 static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set this hi.  it's my debouncer
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
+static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
 static u16 cyclesinstat = 0;	//how many cycles have I been in this status
 
 
@@ -34,7 +36,9 @@ void timer0Init(void){
     
 }
 
-
+void initialize_intensity (u8 intense){
+    intensity = intense;
+}
 
 
 //Timer0 CompareA Interrupt
@@ -66,6 +70,12 @@ ISR(TIMER0_COMPA_vect)	{
 			clockstat = batdisp;
 			turnoff_arm = 0;	//don't come back until this is re-armed at wakeup
 		}
+    if((clockstat == intenset) && butstat){
+        set_intensity(intensity);
+        timeequals0();
+        turnoff_arm = 1;
+        clockstat = clockrun;
+    }
 	laststat = butstat;	//make sure laststat is up to speed for next round
 
 
@@ -94,11 +104,22 @@ ISR(TIMER0_COMPA_vect)	{
             display_volts (read_ADC()); //get the ADC value of the battery voltage and splash it up
             clockstat = voltdisp;  //go to the mode where I'l wait for the button to have been released for 2 seconds, and then start shutting it down
          break;
+                 
+                 
+          case intenset:
+          
+                 display_intensity();
+                 
+                 break;
+                 
          
          case voltdisp:
             if(butstat && (cyclesinstat >= 0x2710)){
             setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it down
-         }
+            } else if (!butstat && (cyclesinstat >= 0x4E20)){
+                clockstat = intenset; } //if the button's been down for 4 seconds and we're in this mode, go into intensity setting mode.
+
+         break; //shouldn't need to break out of here but why not
          }  //end of switch/case
         
 		two_milliseconds = 0;
@@ -159,6 +180,7 @@ void inc_seconds(void){
     }
     if(digits[3] >= 10){
         digits[3] = 0;
+        shut_r_down();    //if we roll all the way over, shut r down
     }
 }
 
@@ -213,5 +235,15 @@ adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colo
 	adval /= 10;
 	digits [2] = adval %10;
 	digits [3] = 10;	//10 is all off
+}
+
+
+void display_intensity (void) {
+    intensity ++;
+    if(intensity == 10){intensity = 1;}
+    for (int i = 0; i < 4; i ++){
+        digits[i] = intensity;
+    }
+    
 }
 

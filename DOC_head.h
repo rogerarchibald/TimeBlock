@@ -28,7 +28,7 @@
 #endif
 
 
-#define intensity 2    //Value from 0-9 that determines the intensity of the LEDs
+//#define intensity 2   
 
 
 #define u8 uint8_t

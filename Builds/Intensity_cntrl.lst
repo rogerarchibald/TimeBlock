@@ -1,0 +1,83 @@
+   1               		.file	"Intensity_cntrl.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 121               	.global	set_intensity
+ 123               	set_intensity:
+   1:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //
+   2:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //  Intensity_cntrl.c
+   3:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //  DOC_xavr
+   4:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //
+   5:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //  Created by Roger on 2016-06-10.
+   6:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //  Copyright © 2016 Roger. All rights reserved.
+   7:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** //
+   8:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+   9:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** #include "Intensity_cntrl.h"
+  10:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  11:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  12:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  13:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  14:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** void set_intensity(u8 newintensity){
+ 125               	.LM0:
+ 126               	.LFBB1:
+ 127               	/* prologue: function */
+ 128               	/* frame size = 0 */
+ 129               	/* stack size = 0 */
+ 130               	.L__stack_usage = 0
+  15:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c ****     eeprom_write_byte ((uint8_t*)10, newintensity);
+ 132               	.LM1:
+ 133 0000 682F      		mov r22,r24
+ 134 0002 8AE0      		ldi r24,lo8(10)
+ 135 0004 90E0      		ldi r25,0
+ 136 0006 0C94 0000 		jmp __eewr_byte_m328p
+ 138               	.Lscope1:
+ 140               	.global	get_intensity
+ 142               	get_intensity:
+  16:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** }
+  17:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  18:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** u8 get_intensity(void){
+ 144               	.LM2:
+ 145               	.LFBB2:
+ 146               	/* prologue: function */
+ 147               	/* frame size = 0 */
+ 148               	/* stack size = 0 */
+ 149               	.L__stack_usage = 0
+  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** u8 tempintense = eeprom_read_byte((uint8_t*)10); //read byte 10 of EEPROM, which is where I'll stor
+ 151               	.LM3:
+ 152 000a 8AE0      		ldi r24,lo8(10)
+ 153 000c 90E0      		ldi r25,0
+ 154 000e 0E94 0000 		call __eerd_byte_m328p
+ 155 0012 8A30      		cpi r24,lo8(10)
+ 156 0014 00F0      		brlo .L3
+ 157 0016 89E0      		ldi r24,lo8(9)
+ 158               	.L3:
+  22:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c ****     if(tempintense > 9){
+  23:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c ****         tempintense = 9;
+  24:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c ****     }
+  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** 
+  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c ****     return tempintense;
+  27:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/Intensity_cntrl.c **** }...
+ 160               	.LM4:
+ 161 0018 0895      		ret
+ 163               	.Lscope2:
+ 165               	.Letext0:
+ 166               		.ident	"GCC: (GNU) 4.9.3"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Intensity_cntrl.c
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:123    .text:0000000000000000 set_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc9JcGAF.s:142    .text:000000000000000a get_intensity
+
+UNDEFINED SYMBOLS
+__eewr_byte_m328p
+__eerd_byte_m328p

@@ -16,6 +16,8 @@
 #include <avr/sleep.h>
 #include "timer.h"
 #include "adc.h"
+#include "intensity_cntrl.h"
+
 
 
 volatile u8 gotosleep = 0;
@@ -39,6 +41,7 @@ PORTC = 0;
 DDRB = 0xEE;	//PB0 = button_in, PB1 = TP1
 PORTB = 0;		//all off.	
 PCMSK0 |= 0x01;	//unmask PCINT0 which is the button.
+initialize_intensity (get_intensity());
 timer0Init();
 init_ADC();
 sei();	

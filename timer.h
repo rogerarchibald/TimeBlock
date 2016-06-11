@@ -24,7 +24,8 @@ void shut_r_down(void);
 void timeequals0 (void);
 void display_batt (void);
 void display_volts (u16 adval);
-
+void display_intensity (void);
+void initialize_intensity (u8 intense);
 
 
 //the status will determine what's displayed.  This is checked in the ISR before updating time and is updated based on button presses or cycling through the batt display.
@@ -32,7 +33,8 @@ enum statusflag {
 	clockoff,
 	clockrun,
 	batdisp,
-	voltdisp
+	voltdisp,
+    intenset
 	};
 
 
