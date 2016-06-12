@@ -26,39 +26,38 @@
   16:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
   17:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** u8 numbers[] = {0xD7, 0x14, 0xE6, 0xB6, 0x35, 0xB3, 0xF3, 0x16, 0xF7, 0xB7, 0x00, 0xE1, 0xE1, 0xF0,
   18:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 digits[] = {0,0,0,0}; //these are actually the values of the 4 digits.  Will use these to
-  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 placeholder = 0;  //will cycle from 0-3 and repeat.  Will determine which of the 4 P-ch F
-  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 butstat = 0;	//will use this as a boolean to check the stat of the button.
-  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 laststat = 0;	//will use this to check current vs previous status of the button to know i
-  22:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set thi
-  23:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how
-  24:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
-  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on 
-  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u16 cyclesinstat = 0;	//how many cycles have I been in this status
+  19:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 butstat = 0;	//will use this as a boolean to check the stat of the button.
+  20:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 laststat = 0;	//will use this to check current vs previous status of the button to know i
+  21:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set thi
+  22:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how
+  23:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
+  24:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on 
+  25:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** static u16 cyclesinstat = 0;	//how many cycles have I been in this status
+  26:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
   27:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
-  28:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
-  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //initialize timer0 with a 200uS rollover to trigger an ISR
-  30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void timer0Init(void){
+  28:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //initialize timer0 with a 200uS rollover to trigger an ISR
+  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void timer0Init(void){
  131               	.LM0:
  132               	.LFBB1:
  133               	/* prologue: function */
  134               	/* frame size = 0 */
  135               	/* stack size = 0 */
  136               	.L__stack_usage = 0
-  31:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     OCR0A = timerroll;   //timerroll is defined in DOC_head.h depending on clock frequency
+  30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     OCR0A = timerroll;   //timerroll is defined in DOC_head.h depending on clock frequency
  138               	.LM1:
  139 0000 83E6      		ldi r24,lo8(99)
  140 0002 87BD      		out 0x27,r24
-  32:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TCCR0A = 0x02;  //set WGM for CTC mode with OCR0A as top
+  31:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TCCR0A = 0x02;  //set WGM for CTC mode with OCR0A as top
  142               	.LM2:
  143 0004 82E0      		ldi r24,lo8(2)
  144 0006 84BD      		out 0x24,r24
-  33:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TCCR0B = 0x02;  //set CS1 for /8 prescaler
+  32:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TCCR0B = 0x02;  //set CS1 for /8 prescaler
  146               	.LM3:
  147 0008 85BD      		out 0x25,r24
-  34:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TIFR0 |= 0x02;  //clear the OCF0A overflow flag
+  33:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TIFR0 |= 0x02;  //clear the OCF0A overflow flag
  149               	.LM4:
  150 000a A99A      		sbi 0x15,1
-  35:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TIMSK0 |= 0x02; //Enable interrupts from Timer0 OverflowA
+  34:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     TIMSK0 |= 0x02; //Enable interrupts from Timer0 OverflowA
  152               	.LM5:
  153 000c EEE6      		ldi r30,lo8(110)
  154 000e F0E0      		ldi r31,0
@@ -69,9 +68,10 @@
  160               	.Lscope1:
  163               	.global	initialize_intensity
  165               	initialize_intensity:
-  36:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     
-  37:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
-  38:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
+  35:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     
+  36:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
+  37:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
+  38:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //called from main prior to initializing timer.  'intense' will be grabbed based on what's stored i
   39:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void initialize_intensity (u8 intense){
  167               	.LM6:
  168               	.LFBB2:
@@ -135,7 +135,7 @@
   87:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if (two_hun_mics >= 10){
   88:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking throu
   89:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_hun_mics = 0;   //reset this value for next round
-  90:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_milliseconds ++;    //if I've made it through 20 cycles of 100uS, increment the 2mS cnt
+  90:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cnt
   91:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		
   92:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }   //end of 2mS cycle
   93:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     
@@ -191,7 +191,7 @@
  193               	/* frame size = 4 */
  194               	/* stack size = 6 */
  195               	.L__stack_usage = 6
- 134:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
+ 134:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     static u8 placeholder = 0;  //will cycle from 0-3 and repeat.  Will determine which of the 4 P-
  135:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	u8 dig_array[] = {0x04, 0x02, 0x01, 0x08};  //array to cycle through the different anodes
  197               	.LM9:
  198 002a 84E0      		ldi r24,lo8(4)
@@ -204,7 +204,7 @@
  205 0038 8C83      		std Y+4,r24
  136:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     placeholder ++;
  207               	.LM10:
- 208 003a 8091 0000 		lds r24,placeholder
+ 208 003a 8091 0000 		lds r24,placeholder.1826
  209 003e 8F5F      		subi r24,lo8(-(1))
  137:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(placeholder >= 4){
  211               	.LM11:
@@ -212,17 +212,17 @@
  213 0042 00F4      		brsh .L4
  136:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     placeholder ++;
  215               	.LM12:
- 216 0044 8093 0000 		sts placeholder,r24
+ 216 0044 8093 0000 		sts placeholder.1826,r24
  217 0048 00C0      		rjmp .L5
  218               	.L4:
  138:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         placeholder = 0;
  220               	.LM13:
- 221 004a 1092 0000 		sts placeholder,__zero_reg__
+ 221 004a 1092 0000 		sts placeholder.1826,__zero_reg__
  222               	.L5:
  139:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  140:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     PORTD = numbers[digits[placeholder]];   //set up bjts on cathodes.
  224               	.LM14:
- 225 004e E091 0000 		lds r30,placeholder
+ 225 004e E091 0000 		lds r30,placeholder.1826
  226 0052 F0E0      		ldi r31,0
  227 0054 E050      		subi r30,lo8(-(digits))
  228 0056 F040      		sbci r31,hi8(-(digits))
@@ -259,7 +259,7 @@
  151:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		case voltdisp:
  152:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		if (placeholder == 2){  //while displaying the voltage, set the lower dot of hte colon to be a ce
  252               	.LM17:
- 253 007c 8091 0000 		lds r24,placeholder
+ 253 007c 8091 0000 		lds r24,placeholder.1826
  254 0080 8230      		cpi r24,lo8(2)
  255 0082 01F4      		brne .L6
  256               	.L12:
@@ -275,7 +275,7 @@
  159:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     PORTC &= ~(dig_array[placeholder]);    //enable the appropriate anode by clearing the Gate of t
  262               	.LM19:
  263 0086 98B1      		in r25,0x8
- 264 0088 8091 0000 		lds r24,placeholder
+ 264 0088 8091 0000 		lds r24,placeholder.1826
  265 008c FE01      		movw r30,r28
  266 008e E80F      		add r30,r24
  267 0090 F11D      		adc r31,__zero_reg__
@@ -294,31 +294,95 @@
  279 00a2 DF91      		pop r29
  280 00a4 CF91      		pop r28
  281 00a6 0895      		ret
- 286               	.Lscope3:
- 288               	.global	timeequals0
- 290               	timeequals0:
+ 287               	.Lscope3:
+ 289               	.global	inc_seconds
+ 291               	inc_seconds:
  162:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  163:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  164:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  165:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //function to actually increment the time.
  166:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void inc_seconds(void){
+ 293               	.LM21:
+ 294               	.LFBB4:
+ 295               	/* prologue: function */
+ 296               	/* frame size = 0 */
+ 297               	/* stack size = 0 */
+ 298               	.L__stack_usage = 0
  167:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	
  168:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     digits[0] ++;
+ 300               	.LM22:
+ 301 00a8 8091 0000 		lds r24,digits
+ 302 00ac 8F5F      		subi r24,lo8(-(1))
  169:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[0] >= 10){
+ 304               	.LM23:
+ 305 00ae 8A30      		cpi r24,lo8(10)
+ 306 00b0 00F4      		brsh .L15
+ 168:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[0] >= 10){
+ 308               	.LM24:
+ 309 00b2 8093 0000 		sts digits,r24
+ 310 00b6 00C0      		rjmp .L16
+ 311               	.L15:
  170:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[0] = 0;
+ 313               	.LM25:
+ 314 00b8 1092 0000 		sts digits,__zero_reg__
  171:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[1]++;
+ 316               	.LM26:
+ 317 00bc 8091 0000 		lds r24,digits+1
+ 318 00c0 8F5F      		subi r24,lo8(-(1))
+ 319 00c2 8093 0000 		sts digits+1,r24
+ 320               	.L16:
  172:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  173:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[1] >= 6){
+ 322               	.LM27:
+ 323 00c6 8091 0000 		lds r24,digits+1
+ 324 00ca 8630      		cpi r24,lo8(6)
+ 325 00cc 00F0      		brlo .L17
  174:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[1] = 0;
+ 327               	.LM28:
+ 328 00ce 1092 0000 		sts digits+1,__zero_reg__
  175:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          digits[2]++;
+ 330               	.LM29:
+ 331 00d2 8091 0000 		lds r24,digits+2
+ 332 00d6 8F5F      		subi r24,lo8(-(1))
+ 333 00d8 8093 0000 		sts digits+2,r24
+ 334               	.L17:
  176:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  177:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[2] >= 10){
+ 336               	.LM30:
+ 337 00dc 8091 0000 		lds r24,digits+2
+ 338 00e0 8A30      		cpi r24,lo8(10)
+ 339 00e2 00F0      		brlo .L18
  178:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[2] = 0;
+ 341               	.LM31:
+ 342 00e4 1092 0000 		sts digits+2,__zero_reg__
  179:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[3] ++;
+ 344               	.LM32:
+ 345 00e8 8091 0000 		lds r24,digits+3
+ 346 00ec 8F5F      		subi r24,lo8(-(1))
+ 347 00ee 8093 0000 		sts digits+3,r24
+ 348               	.L18:
  180:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  181:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[3] >= 10){
+ 350               	.LM33:
+ 351 00f2 8091 0000 		lds r24,digits+3
+ 352 00f6 8A30      		cpi r24,lo8(10)
+ 353 00f8 00F0      		brlo .L14
+ 354               	.LBB4:
+ 355               	.LBB5:
  182:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[3] = 0;
- 183:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         shut_r_down();    //if we roll all the way over, shut r down
+ 357               	.LM34:
+ 358 00fa 1092 0000 		sts digits+3,__zero_reg__
+ 183:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it d
+ 360               	.LM35:
+ 361 00fe 81E0      		ldi r24,lo8(1)
+ 362 0100 0C94 0000 		jmp setsleepstat
+ 363               	.L14:
+ 364 0104 0895      		ret
+ 365               	.LBE5:
+ 366               	.LBE4:
+ 368               	.Lscope4:
+ 370               	.global	timeequals0
+ 372               	timeequals0:
  184:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  185:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
  186:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
@@ -327,675 +391,602 @@
  189:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  190:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  191:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void timeequals0 (void){
- 292               	.LM21:
- 293               	.LFBB4:
- 294               	/* prologue: function */
- 295               	/* frame size = 0 */
- 296               	/* stack size = 0 */
- 297               	.L__stack_usage = 0
- 298               	.LBB2:
+ 374               	.LM36:
+ 375               	.LFBB5:
+ 376               	/* prologue: function */
+ 377               	/* frame size = 0 */
+ 378               	/* stack size = 0 */
+ 379               	.L__stack_usage = 0
+ 380               	.LBB6:
  192:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	for(int i = 0; i < 4; i++){
  193:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		digits[i] = 0;
- 300               	.LM22:
- 301 00a8 E0E0      		ldi r30,lo8(digits)
- 302 00aa F0E0      		ldi r31,hi8(digits)
- 303 00ac 1082      		st Z,__zero_reg__
- 304 00ae 1182      		std Z+1,__zero_reg__
- 305 00b0 1282      		std Z+2,__zero_reg__
- 306 00b2 1382      		std Z+3,__zero_reg__
- 307 00b4 0895      		ret
- 308               	.LBE2:
- 310               	.Lscope4:
- 312               	.global	shut_r_down
- 314               	shut_r_down:
+ 382               	.LM37:
+ 383 0106 E0E0      		ldi r30,lo8(digits)
+ 384 0108 F0E0      		ldi r31,hi8(digits)
+ 385 010a 1082      		st Z,__zero_reg__
+ 386 010c 1182      		std Z+1,__zero_reg__
+ 387 010e 1282      		std Z+2,__zero_reg__
+ 388 0110 1382      		std Z+3,__zero_reg__
+ 389 0112 0895      		ret
+ 390               	.LBE6:
+ 392               	.Lscope5:
+ 394               	.global	shut_r_down
+ 396               	shut_r_down:
  194:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	}
  195:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
  196:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  197:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  198:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  199:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void shut_r_down(void){
- 316               	.LM23:
- 317               	.LFBB5:
- 318               	/* prologue: function */
- 319               	/* frame size = 0 */
- 320               	/* stack size = 0 */
- 321               	.L__stack_usage = 0
+ 398               	.LM38:
+ 399               	.LFBB6:
+ 400               	/* prologue: function */
+ 401               	/* frame size = 0 */
+ 402               	/* stack size = 0 */
+ 403               	.L__stack_usage = 0
  200:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	timeequals0();
- 323               	.LM24:
- 324 00b6 0E94 0000 		call timeequals0
+ 405               	.LM39:
+ 406 0114 0E94 0000 		call timeequals0
  201:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	TCCR0B = 0;		//kill timer
- 326               	.LM25:
- 327 00ba 15BC      		out 0x25,__zero_reg__
+ 408               	.LM40:
+ 409 0118 15BC      		out 0x25,__zero_reg__
  202:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PORTD = 0;		//turn off NPNs
- 329               	.LM26:
- 330 00bc 1BB8      		out 0xb,__zero_reg__
+ 411               	.LM41:
+ 412 011a 1BB8      		out 0xb,__zero_reg__
  203:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PORTC |= 0x0F;	//turn off P-ch
- 332               	.LM27:
- 333 00be 88B1      		in r24,0x8
- 334 00c0 8F60      		ori r24,lo8(15)
- 335 00c2 88B9      		out 0x8,r24
+ 414               	.LM42:
+ 415 011c 88B1      		in r24,0x8
+ 416 011e 8F60      		ori r24,lo8(15)
+ 417 0120 88B9      		out 0x8,r24
  204:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);	//going to deep sleep
- 337               	.LM28:
- 338 00c4 83B7      		in r24,0x33
- 339 00c6 817F      		andi r24,lo8(-15)
- 340 00c8 8460      		ori r24,lo8(4)
- 341 00ca 83BF      		out 0x33,r24
+ 419               	.LM43:
+ 420 0122 83B7      		in r24,0x33
+ 421 0124 817F      		andi r24,lo8(-15)
+ 422 0126 8460      		ori r24,lo8(4)
+ 423 0128 83BF      		out 0x33,r24
  205:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PCIFR |= 0x01;	//clear interrupt flag
- 343               	.LM29:
- 344 00cc D89A      		sbi 0x1b,0
+ 425               	.LM44:
+ 426 012a D89A      		sbi 0x1b,0
  206:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PCICR |= 0x01;	//enable Pin Change Interrupt
- 346               	.LM30:
- 347 00ce E8E6      		ldi r30,lo8(104)
- 348 00d0 F0E0      		ldi r31,0
- 349 00d2 8081      		ld r24,Z
- 350 00d4 8160      		ori r24,lo8(1)
- 351 00d6 8083      		st Z,r24
+ 428               	.LM45:
+ 429 012c E8E6      		ldi r30,lo8(104)
+ 430 012e F0E0      		ldi r31,0
+ 431 0130 8081      		ld r24,Z
+ 432 0132 8160      		ori r24,lo8(1)
+ 433 0134 8083      		st Z,r24
  207:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	sleep_mode();
- 353               	.LM31:
- 354 00d8 83B7      		in r24,0x33
- 355 00da 8160      		ori r24,lo8(1)
- 356 00dc 83BF      		out 0x33,r24
- 357               	/* #APP */
- 358               	 ;  207 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr
- 359 00de 8895      		sleep
- 360               		
- 361               	 ;  0 "" 2
- 362               	/* #NOAPP */
- 363 00e0 83B7      		in r24,0x33
- 364 00e2 8E7F      		andi r24,lo8(-2)
- 365 00e4 83BF      		out 0x33,r24
- 208:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	asm ("nop");
- 367               	.LM32:
- 368               	/* #APP */
- 369               	 ;  208 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr
- 370 00e6 0000      		nop
- 371               	 ;  0 "" 2
- 209:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PCICR = 0;	//disable PC Interrupt
- 373               	.LM33:
- 374               	/* #NOAPP */
- 375 00e8 1082      		st Z,__zero_reg__
- 210:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	set_sleep_mode(SLEEP_MODE_IDLE);	//change back to IDLE
- 377               	.LM34:
- 378 00ea 83B7      		in r24,0x33
- 379 00ec 817F      		andi r24,lo8(-15)
- 380 00ee 83BF      		out 0x33,r24
- 211:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	clockstat = clockrun;	//arming for post-reset
- 382               	.LM35:
- 383 00f0 81E0      		ldi r24,lo8(1)
- 384 00f2 8093 0000 		sts clockstat,r24
- 212:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	fallarm = 0;
- 386               	.LM36:
- 387 00f6 1092 0000 		sts fallarm,__zero_reg__
- 213:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	turnoff_arm = 1;
- 389               	.LM37:
- 390 00fa 8093 0000 		sts turnoff_arm,r24
- 214:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	cyclesinstat = 0;
- 392               	.LM38:
- 393 00fe 1092 0000 		sts cyclesinstat+1,__zero_reg__
- 394 0102 1092 0000 		sts cyclesinstat,__zero_reg__
- 215:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	setsleepstat(0);
- 396               	.LM39:
- 397 0106 80E0      		ldi r24,0
- 398 0108 0E94 0000 		call setsleepstat
- 216:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	TCCR0B |= 0x02;	//re-enable clock
- 400               	.LM40:
- 401 010c 85B5      		in r24,0x25
- 402 010e 8260      		ori r24,lo8(2)
- 403 0110 85BD      		out 0x25,r24
- 404 0112 0895      		ret
- 406               	.Lscope5:
- 408               	.global	inc_seconds
- 410               	inc_seconds:
- 166:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	
- 412               	.LM41:
- 413               	.LFBB6:
- 414               	/* prologue: function */
- 415               	/* frame size = 0 */
- 416               	/* stack size = 0 */
- 417               	.L__stack_usage = 0
- 168:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[0] >= 10){
- 419               	.LM42:
- 420 0114 8091 0000 		lds r24,digits
- 421 0118 8F5F      		subi r24,lo8(-(1))
- 169:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[0] = 0;
- 423               	.LM43:
- 424 011a 8A30      		cpi r24,lo8(10)
- 425 011c 00F4      		brsh .L17
- 168:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(digits[0] >= 10){
- 427               	.LM44:
- 428 011e 8093 0000 		sts digits,r24
- 429 0122 00C0      		rjmp .L18
- 430               	.L17:
- 170:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[1]++;
- 432               	.LM45:
- 433 0124 1092 0000 		sts digits,__zero_reg__
- 171:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
  435               	.LM46:
- 436 0128 8091 0000 		lds r24,digits+1
- 437 012c 8F5F      		subi r24,lo8(-(1))
- 438 012e 8093 0000 		sts digits+1,r24
- 439               	.L18:
- 173:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[1] = 0;
- 441               	.LM47:
- 442 0132 8091 0000 		lds r24,digits+1
- 443 0136 8630      		cpi r24,lo8(6)
- 444 0138 00F0      		brlo .L19
- 174:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          digits[2]++;
- 446               	.LM48:
- 447 013a 1092 0000 		sts digits+1,__zero_reg__
- 175:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
- 449               	.LM49:
- 450 013e 8091 0000 		lds r24,digits+2
- 451 0142 8F5F      		subi r24,lo8(-(1))
- 452 0144 8093 0000 		sts digits+2,r24
- 453               	.L19:
- 177:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[2] = 0;
- 455               	.LM50:
- 456 0148 8091 0000 		lds r24,digits+2
- 457 014c 8A30      		cpi r24,lo8(10)
- 458 014e 00F0      		brlo .L20
- 178:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[3] ++;
- 460               	.LM51:
- 461 0150 1092 0000 		sts digits+2,__zero_reg__
- 179:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
- 463               	.LM52:
- 464 0154 8091 0000 		lds r24,digits+3
- 465 0158 8F5F      		subi r24,lo8(-(1))
- 466 015a 8093 0000 		sts digits+3,r24
- 467               	.L20:
- 181:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[3] = 0;
- 469               	.LM53:
- 470 015e 8091 0000 		lds r24,digits+3
- 471 0162 8A30      		cpi r24,lo8(10)
- 472 0164 00F0      		brlo .L16
- 182:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         shut_r_down();    //if we roll all the way over, shut r down
- 474               	.LM54:
- 475 0166 1092 0000 		sts digits+3,__zero_reg__
- 183:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
- 477               	.LM55:
- 478 016a 0C94 0000 		jmp shut_r_down
- 479               	.L16:
- 480 016e 0895      		ret
- 482               	.Lscope6:
- 484               	.global	display_batt
- 486               	display_batt:
+ 436 0136 83B7      		in r24,0x33
+ 437 0138 8160      		ori r24,lo8(1)
+ 438 013a 83BF      		out 0x33,r24
+ 439               	/* #APP */
+ 440               	 ;  207 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr
+ 441 013c 8895      		sleep
+ 442               		
+ 443               	 ;  0 "" 2
+ 444               	/* #NOAPP */
+ 445 013e 83B7      		in r24,0x33
+ 446 0140 8E7F      		andi r24,lo8(-2)
+ 447 0142 83BF      		out 0x33,r24
+ 208:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	asm ("nop");
+ 449               	.LM47:
+ 450               	/* #APP */
+ 451               	 ;  208 "/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr
+ 452 0144 0000      		nop
+ 453               	 ;  0 "" 2
+ 209:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	PCICR = 0;	//disable PC Interrupt
+ 455               	.LM48:
+ 456               	/* #NOAPP */
+ 457 0146 1082      		st Z,__zero_reg__
+ 210:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	set_sleep_mode(SLEEP_MODE_IDLE);	//change back to IDLE
+ 459               	.LM49:
+ 460 0148 83B7      		in r24,0x33
+ 461 014a 817F      		andi r24,lo8(-15)
+ 462 014c 83BF      		out 0x33,r24
+ 211:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	clockstat = clockrun;	//arming for post-reset
+ 464               	.LM50:
+ 465 014e 81E0      		ldi r24,lo8(1)
+ 466 0150 8093 0000 		sts clockstat,r24
+ 212:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	fallarm = 0;
+ 468               	.LM51:
+ 469 0154 1092 0000 		sts fallarm,__zero_reg__
+ 213:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	turnoff_arm = 1;
+ 471               	.LM52:
+ 472 0158 8093 0000 		sts turnoff_arm,r24
+ 214:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	cyclesinstat = 0;
+ 474               	.LM53:
+ 475 015c 1092 0000 		sts cyclesinstat+1,__zero_reg__
+ 476 0160 1092 0000 		sts cyclesinstat,__zero_reg__
+ 215:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	setsleepstat(0);
+ 478               	.LM54:
+ 479 0164 80E0      		ldi r24,0
+ 480 0166 0E94 0000 		call setsleepstat
+ 216:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	TCCR0B |= 0x02;	//re-enable clock
+ 482               	.LM55:
+ 483 016a 85B5      		in r24,0x25
+ 484 016c 8260      		ori r24,lo8(2)
+ 485 016e 85BD      		out 0x25,r24
+ 486 0170 0895      		ret
+ 488               	.Lscope6:
+ 490               	.global	display_batt
+ 492               	display_batt:
  217:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
  218:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  219:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //this just puts 'batt' across the display.  Will be called for 1 second prior to displaying the ac
  220:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void display_batt(void){
- 488               	.LM56:
- 489               	.LFBB7:
- 490               	/* prologue: function */
- 491               	/* frame size = 0 */
- 492               	/* stack size = 0 */
- 493               	.L__stack_usage = 0
- 494               	.LBB3:
+ 494               	.LM56:
+ 495               	.LFBB7:
+ 496               	/* prologue: function */
+ 497               	/* frame size = 0 */
+ 498               	/* stack size = 0 */
+ 499               	.L__stack_usage = 0
+ 500               	.LBB7:
  221:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		for (int i = 11; i < 15; i ++){
  222:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 			digits[(i-11)] = i;
- 496               	.LM57:
- 497 0170 E0E0      		ldi r30,lo8(digits)
- 498 0172 F0E0      		ldi r31,hi8(digits)
- 499 0174 8BE0      		ldi r24,lo8(11)
- 500 0176 8083      		st Z,r24
- 501 0178 8CE0      		ldi r24,lo8(12)
- 502 017a 8183      		std Z+1,r24
- 503 017c 8DE0      		ldi r24,lo8(13)
- 504 017e 8283      		std Z+2,r24
- 505 0180 8EE0      		ldi r24,lo8(14)
- 506 0182 8383      		std Z+3,r24
- 507 0184 0895      		ret
- 508               	.LBE3:
- 510               	.Lscope7:
- 513               	.global	display_volts
- 515               	display_volts:
+ 502               	.LM57:
+ 503 0172 E0E0      		ldi r30,lo8(digits)
+ 504 0174 F0E0      		ldi r31,hi8(digits)
+ 505 0176 8BE0      		ldi r24,lo8(11)
+ 506 0178 8083      		st Z,r24
+ 507 017a 8CE0      		ldi r24,lo8(12)
+ 508 017c 8183      		std Z+1,r24
+ 509 017e 8DE0      		ldi r24,lo8(13)
+ 510 0180 8283      		std Z+2,r24
+ 511 0182 8EE0      		ldi r24,lo8(14)
+ 512 0184 8383      		std Z+3,r24
+ 513 0186 0895      		ret
+ 514               	.LBE7:
+ 516               	.Lscope7:
+ 519               	.global	display_volts
+ 521               	display_volts:
  223:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		}
  224:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
  225:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  226:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  227:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  228:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void display_volts (u16 adval){
- 517               	.LM58:
- 518               	.LFBB8:
- 519               	/* prologue: function */
- 520               	/* frame size = 0 */
- 521               	/* stack size = 0 */
- 522               	.L__stack_usage = 0
+ 523               	.LM58:
+ 524               	.LFBB8:
+ 525               	/* prologue: function */
+ 526               	/* frame size = 0 */
+ 527               	/* stack size = 0 */
+ 528               	.L__stack_usage = 0
  229:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
  230:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //this is will display the voltage.
  231:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colon as decimal place 
- 524               	.LM59:
- 525 0186 2AE0      		ldi r18,lo8(10)
- 526 0188 30E0      		ldi r19,0
- 527 018a B901      		movw r22,r18
- 528 018c 0E94 0000 		call __udivmodhi4
- 529 0190 CB01      		movw r24,r22
+ 530               	.LM59:
+ 531 0188 2AE0      		ldi r18,lo8(10)
+ 532 018a 30E0      		ldi r19,0
+ 533 018c B901      		movw r22,r18
+ 534 018e 0E94 0000 		call __udivmodhi4
+ 535 0192 CB01      		movw r24,r22
  232:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	digits[0] = adval % 10;
- 531               	.LM60:
- 532 0192 E0E0      		ldi r30,lo8(digits)
- 533 0194 F0E0      		ldi r31,hi8(digits)
- 534 0196 B901      		movw r22,r18
- 535 0198 0E94 0000 		call __udivmodhi4
- 536 019c 8083      		st Z,r24
+ 537               	.LM60:
+ 538 0194 E0E0      		ldi r30,lo8(digits)
+ 539 0196 F0E0      		ldi r31,hi8(digits)
+ 540 0198 B901      		movw r22,r18
+ 541 019a 0E94 0000 		call __udivmodhi4
+ 542 019e 8083      		st Z,r24
  233:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	adval /= 10;
  234:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	digits [1] = adval %10;
- 538               	.LM61:
- 539 019e CB01      		movw r24,r22
- 540 01a0 B901      		movw r22,r18
- 541 01a2 0E94 0000 		call __udivmodhi4
- 542 01a6 8183      		std Z+1,r24
+ 544               	.LM61:
+ 545 01a0 CB01      		movw r24,r22
+ 546 01a2 B901      		movw r22,r18
+ 547 01a4 0E94 0000 		call __udivmodhi4
+ 548 01a8 8183      		std Z+1,r24
  235:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	adval /= 10;
  236:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	digits [2] = adval %10;
- 544               	.LM62:
- 545 01a8 CB01      		movw r24,r22
- 546 01aa B901      		movw r22,r18
- 547 01ac 0E94 0000 		call __udivmodhi4
- 548 01b0 8283      		std Z+2,r24
+ 550               	.LM62:
+ 551 01aa CB01      		movw r24,r22
+ 552 01ac B901      		movw r22,r18
+ 553 01ae 0E94 0000 		call __udivmodhi4
+ 554 01b2 8283      		std Z+2,r24
  237:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	digits [3] = 10;	//10 is all off
- 550               	.LM63:
- 551 01b2 8AE0      		ldi r24,lo8(10)
- 552 01b4 8383      		std Z+3,r24
- 553 01b6 0895      		ret
- 555               	.Lscope8:
- 557               	.global	display_intensity
- 559               	display_intensity:
+ 556               	.LM63:
+ 557 01b4 8AE0      		ldi r24,lo8(10)
+ 558 01b6 8383      		std Z+3,r24
+ 559 01b8 0895      		ret
+ 561               	.Lscope8:
+ 563               	.global	display_intensity
+ 565               	display_intensity:
  238:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** }
  239:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
- 240:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
+ 240:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** //while clockstat == intenset, this will be called once a second.  Will increment teh intensity fro
  241:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** void display_intensity (void) {
- 561               	.LM64:
- 562               	.LFBB9:
- 563               	/* prologue: function */
- 564               	/* frame size = 0 */
- 565               	/* stack size = 0 */
- 566               	.L__stack_usage = 0
+ 567               	.LM64:
+ 568               	.LFBB9:
+ 569               	/* prologue: function */
+ 570               	/* frame size = 0 */
+ 571               	/* stack size = 0 */
+ 572               	.L__stack_usage = 0
  242:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     intensity ++;
- 568               	.LM65:
- 569 01b8 8091 0000 		lds r24,intensity
- 570 01bc 8F5F      		subi r24,lo8(-(1))
+ 574               	.LM65:
+ 575 01ba 8091 0000 		lds r24,intensity
+ 576 01be 8F5F      		subi r24,lo8(-(1))
  243:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if(intensity == 10){intensity = 1;}
- 572               	.LM66:
- 573 01be 8A30      		cpi r24,lo8(10)
- 574 01c0 01F4      		brne .L27
- 576               	.LM67:
- 577 01c2 81E0      		ldi r24,lo8(1)
- 578               	.L27:
- 579 01c4 8093 0000 		sts intensity,r24
- 580               	.LBB4:
+ 578               	.LM66:
+ 579 01c0 8A30      		cpi r24,lo8(10)
+ 580 01c2 01F4      		brne .L27
+ 582               	.LM67:
+ 583 01c4 81E0      		ldi r24,lo8(1)
+ 584               	.L27:
+ 585 01c6 8093 0000 		sts intensity,r24
+ 586               	.LBB8:
  244:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     for (int i = 0; i < 4; i ++){
  245:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         digits[i] = intensity;
- 582               	.LM68:
- 583 01c8 8091 0000 		lds r24,intensity
- 584 01cc 8093 0000 		sts digits,r24
- 585 01d0 8093 0000 		sts digits+1,r24
- 586 01d4 8093 0000 		sts digits+2,r24
- 587 01d8 8093 0000 		sts digits+3,r24
- 588 01dc 0895      		ret
- 589               	.LBE4:
- 591               	.Lscope9:
- 593               	.global	__vector_14
- 595               	__vector_14:
+ 588               	.LM68:
+ 589 01ca 8091 0000 		lds r24,intensity
+ 590 01ce 8093 0000 		sts digits,r24
+ 591 01d2 8093 0000 		sts digits+1,r24
+ 592 01d6 8093 0000 		sts digits+2,r24
+ 593 01da 8093 0000 		sts digits+3,r24
+ 594 01de 0895      		ret
+ 595               	.LBE8:
+ 597               	.Lscope9:
+ 599               	.global	__vector_14
+ 601               	__vector_14:
   45:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     static u8 two_hun_mics = 0;
- 597               	.LM69:
- 598               	.LFBB10:
- 599 01de 1F92      		push r1
- 600 01e0 0F92      		push r0
- 601 01e2 0FB6      		in r0,__SREG__
- 602 01e4 0F92      		push r0
- 603 01e6 1124      		clr __zero_reg__
- 604 01e8 0F93      		push r16
- 605 01ea 1F93      		push r17
- 606 01ec 2F93      		push r18
- 607 01ee 3F93      		push r19
- 608 01f0 4F93      		push r20
- 609 01f2 5F93      		push r21
- 610 01f4 6F93      		push r22
- 611 01f6 7F93      		push r23
- 612 01f8 8F93      		push r24
- 613 01fa 9F93      		push r25
- 614 01fc AF93      		push r26
- 615 01fe BF93      		push r27
- 616 0200 CF93      		push r28
- 617 0202 EF93      		push r30
- 618 0204 FF93      		push r31
- 619               	/* prologue: Signal */
- 620               	/* frame size = 0 */
- 621               	/* stack size = 18 */
- 622               	.L__stack_usage = 18
+ 603               	.LM69:
+ 604               	.LFBB10:
+ 605 01e0 1F92      		push r1
+ 606 01e2 0F92      		push r0
+ 607 01e4 0FB6      		in r0,__SREG__
+ 608 01e6 0F92      		push r0
+ 609 01e8 1124      		clr __zero_reg__
+ 610 01ea 0F93      		push r16
+ 611 01ec 1F93      		push r17
+ 612 01ee 2F93      		push r18
+ 613 01f0 3F93      		push r19
+ 614 01f2 4F93      		push r20
+ 615 01f4 5F93      		push r21
+ 616 01f6 6F93      		push r22
+ 617 01f8 7F93      		push r23
+ 618 01fa 8F93      		push r24
+ 619 01fc 9F93      		push r25
+ 620 01fe AF93      		push r26
+ 621 0200 BF93      		push r27
+ 622 0202 CF93      		push r28
+ 623 0204 EF93      		push r30
+ 624 0206 FF93      		push r31
+ 625               	/* prologue: Signal */
+ 626               	/* frame size = 0 */
+ 627               	/* stack size = 18 */
+ 628               	.L__stack_usage = 18
   51:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	if(butstat == laststat){
- 624               	.LM70:
- 625 0206 C3B1      		in r28,0x3
- 626 0208 C170      		andi r28,lo8(1)
- 627 020a C093 0000 		sts butstat,r28
+ 630               	.LM70:
+ 631 0208 C3B1      		in r28,0x3
+ 632 020a C170      		andi r28,lo8(1)
+ 633 020c C093 0000 		sts butstat,r28
   52:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		cyclesinstat ++;
- 629               	.LM71:
- 630 020e 2091 0000 		lds r18,laststat
- 631 0212 C213      		cpse r28,r18
- 632 0214 00C0      		rjmp .L29
+ 635               	.LM71:
+ 636 0210 2091 0000 		lds r18,laststat
+ 637 0214 C213      		cpse r28,r18
+ 638 0216 00C0      		rjmp .L29
   53:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	} else{	//count how many times I've been in this status
- 634               	.LM72:
- 635 0216 8091 0000 		lds r24,cyclesinstat
- 636 021a 9091 0000 		lds r25,cyclesinstat+1
- 637 021e 0196      		adiw r24,1
- 638 0220 9093 0000 		sts cyclesinstat+1,r25
- 639 0224 8093 0000 		sts cyclesinstat,r24
- 640 0228 00C0      		rjmp .L30
- 641               	.L29:
+ 640               	.LM72:
+ 641 0218 8091 0000 		lds r24,cyclesinstat
+ 642 021c 9091 0000 		lds r25,cyclesinstat+1
+ 643 0220 0196      		adiw r24,1
+ 644 0222 9093 0000 		sts cyclesinstat+1,r25
+ 645 0226 8093 0000 		sts cyclesinstat,r24
+ 646 022a 00C0      		rjmp .L30
+ 647               	.L29:
   55:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	} //reset counter if the status has changed.
- 643               	.LM73:
- 644 022a 1092 0000 		sts cyclesinstat+1,__zero_reg__
- 645 022e 1092 0000 		sts cyclesinstat,__zero_reg__
- 646               	.L30:
+ 649               	.LM73:
+ 650 022c 1092 0000 		sts cyclesinstat+1,__zero_reg__
+ 651 0230 1092 0000 		sts cyclesinstat,__zero_reg__
+ 652               	.L30:
   57:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		fallarm = 1;
- 648               	.LM74:
- 649 0232 0091 0000 		lds r16,cyclesinstat
- 650 0236 1091 0000 		lds r17,cyclesinstat+1
- 651 023a 0333      		cpi r16,51
- 652 023c 1105      		cpc r17,__zero_reg__
- 653 023e 00F0      		brlo .L31
+ 654               	.LM74:
+ 655 0234 0091 0000 		lds r16,cyclesinstat
+ 656 0238 1091 0000 		lds r17,cyclesinstat+1
+ 657 023c 0333      		cpi r16,51
+ 658 023e 1105      		cpc r17,__zero_reg__
+ 659 0240 00F0      		brlo .L31
   57:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		fallarm = 1;
- 655               	.LM75:
- 656 0240 2223      		tst r18
- 657 0242 01F0      		breq .L31
+ 661               	.LM75:
+ 662 0242 2223      		tst r18
+ 663 0244 01F0      		breq .L31
   57:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		fallarm = 1;
- 659               	.LM76:
- 660 0244 8091 0000 		lds r24,turnoff_arm
- 661 0248 8823      		tst r24
- 662 024a 01F0      		breq .L31
+ 665               	.LM76:
+ 666 0246 8091 0000 		lds r24,turnoff_arm
+ 667 024a 8823      		tst r24
+ 668 024c 01F0      		breq .L31
   58:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		clockstat = clockrun;
- 664               	.LM77:
- 665 024c 81E0      		ldi r24,lo8(1)
- 666 024e 8093 0000 		sts fallarm,r24
+ 670               	.LM77:
+ 671 024e 81E0      		ldi r24,lo8(1)
+ 672 0250 8093 0000 		sts fallarm,r24
   59:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 	}	//if the button is hi and it's been hi for 50 cycles (50 x 200uS = 10mS), set it up so the next 
- 668               	.LM78:
- 669 0252 8093 0000 		sts clockstat,r24
- 670               	.L31:
+ 674               	.LM78:
+ 675 0254 8093 0000 		sts clockstat,r24
+ 676               	.L31:
   61:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		fallarm = 0;
- 672               	.LM79:
- 673 0256 8091 0000 		lds r24,fallarm
- 674 025a 8823      		tst r24
- 675 025c 01F0      		breq .L32
+ 678               	.LM79:
+ 679 0258 8091 0000 		lds r24,fallarm
+ 680 025c 8823      		tst r24
+ 681 025e 01F0      		breq .L32
   61:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		fallarm = 0;
- 677               	.LM80:
- 678 025e C111      		cpse r28,__zero_reg__
- 679 0260 00C0      		rjmp .L32
+ 683               	.LM80:
+ 684 0260 C111      		cpse r28,__zero_reg__
+ 685 0262 00C0      		rjmp .L32
   62:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		timeequals0();
- 681               	.LM81:
- 682 0262 1092 0000 		sts fallarm,__zero_reg__
+ 687               	.LM81:
+ 688 0264 1092 0000 		sts fallarm,__zero_reg__
   63:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		clockstat = clockoff;
- 684               	.LM82:
- 685 0266 0E94 0000 		call timeequals0
+ 690               	.LM82:
+ 691 0268 0E94 0000 		call timeequals0
   64:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		}
- 687               	.LM83:
- 688 026a 1092 0000 		sts clockstat,__zero_reg__
- 689               	.L32:
+ 693               	.LM83:
+ 694 026c 1092 0000 		sts clockstat,__zero_reg__
+ 695               	.L32:
   66:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		{
- 691               	.LM84:
- 692 026e 8091 0000 		lds r24,turnoff_arm
- 693 0272 8823      		tst r24
- 694 0274 01F0      		breq .L33
+ 697               	.LM84:
+ 698 0270 8091 0000 		lds r24,turnoff_arm
+ 699 0274 8823      		tst r24
+ 700 0276 01F0      		breq .L33
   66:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		{
- 696               	.LM85:
- 697 0276 C111      		cpse r28,__zero_reg__
- 698 0278 00C0      		rjmp .L33
+ 702               	.LM85:
+ 703 0278 C111      		cpse r28,__zero_reg__
+ 704 027a 00C0      		rjmp .L33
   66:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		{
- 700               	.LM86:
- 701 027a 0031      		cpi r16,16
- 702 027c 1742      		sbci r17,39
- 703 027e 00F0      		brlo .L33
+ 706               	.LM86:
+ 707 027c 0031      		cpi r16,16
+ 708 027e 1742      		sbci r17,39
+ 709 0280 00F0      		brlo .L33
   68:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 			display_batt();
- 705               	.LM87:
- 706 0280 1092 0000 		sts two_milliseconds.1818+1,__zero_reg__
- 707 0284 1092 0000 		sts two_milliseconds.1818,__zero_reg__
+ 711               	.LM87:
+ 712 0282 1092 0000 		sts two_milliseconds.1817+1,__zero_reg__
+ 713 0286 1092 0000 		sts two_milliseconds.1817,__zero_reg__
   69:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 			clockstat = batdisp;
- 709               	.LM88:
- 710 0288 0E94 0000 		call display_batt
+ 715               	.LM88:
+ 716 028a 0E94 0000 		call display_batt
   70:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 			turnoff_arm = 0;	//don't come back until this is re-armed at wakeup
- 712               	.LM89:
- 713 028c 82E0      		ldi r24,lo8(2)
- 714 028e 8093 0000 		sts clockstat,r24
+ 718               	.LM89:
+ 719 028e 82E0      		ldi r24,lo8(2)
+ 720 0290 8093 0000 		sts clockstat,r24
   71:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		}
- 716               	.LM90:
- 717 0292 1092 0000 		sts turnoff_arm,__zero_reg__
- 718               	.L33:
+ 722               	.LM90:
+ 723 0294 1092 0000 		sts turnoff_arm,__zero_reg__
+ 724               	.L33:
   73:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         set_intensity(intensity);
- 720               	.LM91:
- 721 0296 8091 0000 		lds r24,clockstat
- 722 029a 8430      		cpi r24,lo8(4)
- 723 029c 01F4      		brne .L34
+ 726               	.LM91:
+ 727 0298 8091 0000 		lds r24,clockstat
+ 728 029c 8430      		cpi r24,lo8(4)
+ 729 029e 01F4      		brne .L34
   73:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         set_intensity(intensity);
- 725               	.LM92:
- 726 029e CC23      		tst r28
- 727 02a0 01F0      		breq .L34
+ 731               	.LM92:
+ 732 02a0 CC23      		tst r28
+ 733 02a2 01F0      		breq .L34
   74:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         timeequals0();
- 729               	.LM93:
- 730 02a2 8091 0000 		lds r24,intensity
- 731 02a6 0E94 0000 		call set_intensity
+ 735               	.LM93:
+ 736 02a4 8091 0000 		lds r24,intensity
+ 737 02a8 0E94 0000 		call set_intensity
   75:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         turnoff_arm = 1;
- 733               	.LM94:
- 734 02aa 0E94 0000 		call timeequals0
+ 739               	.LM94:
+ 740 02ac 0E94 0000 		call timeequals0
   76:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         clockstat = clockrun;
- 736               	.LM95:
- 737 02ae 81E0      		ldi r24,lo8(1)
- 738 02b0 8093 0000 		sts turnoff_arm,r24
+ 742               	.LM95:
+ 743 02b0 81E0      		ldi r24,lo8(1)
+ 744 02b2 8093 0000 		sts turnoff_arm,r24
   77:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
- 740               	.LM96:
- 741 02b4 8093 0000 		sts clockstat,r24
- 742               	.L34:
+ 746               	.LM96:
+ 747 02b6 8093 0000 		sts clockstat,r24
+ 748               	.L34:
   79:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
- 744               	.LM97:
- 745 02b8 8091 0000 		lds r24,butstat
- 746 02bc 8093 0000 		sts laststat,r24
+ 750               	.LM97:
+ 751 02ba 8091 0000 		lds r24,butstat
+ 752 02be 8093 0000 		sts laststat,r24
   82:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     if (two_hun_mics >= intensity){ //once the intensity level is reached will kill the active LED
- 748               	.LM98:
- 749 02c0 8091 0000 		lds r24,two_hun_mics.1817
- 750 02c4 8F5F      		subi r24,lo8(-(1))
- 751 02c6 8093 0000 		sts two_hun_mics.1817,r24
+ 754               	.LM98:
+ 755 02c2 8091 0000 		lds r24,two_hun_mics.1816
+ 756 02c6 8F5F      		subi r24,lo8(-(1))
+ 757 02c8 8093 0000 		sts two_hun_mics.1816,r24
   83:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         PORTC|= 0x0F;  //this will set the 4 LSB's of Port C, ensuring all anodes are off
- 753               	.LM99:
- 754 02ca 9091 0000 		lds r25,intensity
- 755 02ce 8917      		cp r24,r25
- 756 02d0 00F0      		brlo .L35
+ 759               	.LM99:
+ 760 02cc 9091 0000 		lds r25,intensity
+ 761 02d0 8917      		cp r24,r25
+ 762 02d2 00F0      		brlo .L35
   84:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }   //end of checking intensity
- 758               	.LM100:
- 759 02d2 88B1      		in r24,0x8
- 760 02d4 8F60      		ori r24,lo8(15)
- 761 02d6 88B9      		out 0x8,r24
- 762               	.L35:
+ 764               	.LM100:
+ 765 02d4 88B1      		in r24,0x8
+ 766 02d6 8F60      		ori r24,lo8(15)
+ 767 02d8 88B9      		out 0x8,r24
+ 768               	.L35:
   87:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking throu
- 764               	.LM101:
- 765 02d8 8091 0000 		lds r24,two_hun_mics.1817
- 766 02dc 8A30      		cpi r24,lo8(10)
- 767 02de 00F0      		brlo .L36
+ 770               	.LM101:
+ 771 02da 8091 0000 		lds r24,two_hun_mics.1816
+ 772 02de 8A30      		cpi r24,lo8(10)
+ 773 02e0 00F0      		brlo .L36
   88:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_hun_mics = 0;   //reset this value for next round
- 769               	.LM102:
- 770 02e0 0E94 0000 		call next_digit
-  89:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_milliseconds ++;    //if I've made it through 20 cycles of 100uS, increment the 2mS cnt
- 772               	.LM103:
- 773 02e4 1092 0000 		sts two_hun_mics.1817,__zero_reg__
+ 775               	.LM102:
+ 776 02e2 0E94 0000 		call next_digit
+  89:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cnt
+ 778               	.LM103:
+ 779 02e6 1092 0000 		sts two_hun_mics.1816,__zero_reg__
   90:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 		
- 775               	.LM104:
- 776 02e8 8091 0000 		lds r24,two_milliseconds.1818
- 777 02ec 9091 0000 		lds r25,two_milliseconds.1818+1
- 778 02f0 0196      		adiw r24,1
- 779 02f2 9093 0000 		sts two_milliseconds.1818+1,r25
- 780 02f6 8093 0000 		sts two_milliseconds.1818,r24
- 781               	.L36:
+ 781               	.LM104:
+ 782 02ea 8091 0000 		lds r24,two_milliseconds.1817
+ 783 02ee 9091 0000 		lds r25,two_milliseconds.1817+1
+ 784 02f2 0196      		adiw r24,1
+ 785 02f4 9093 0000 		sts two_milliseconds.1817+1,r25
+ 786 02f8 8093 0000 		sts two_milliseconds.1817,r24
+ 787               	.L36:
   95:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****         
- 783               	.LM105:
- 784 02fa 8091 0000 		lds r24,two_milliseconds.1818
- 785 02fe 9091 0000 		lds r25,two_milliseconds.1818+1
- 786 0302 843F      		cpi r24,-12
- 787 0304 9140      		sbci r25,1
- 788 0306 00F0      		brlo .L28
+ 789               	.LM105:
+ 790 02fc 8091 0000 		lds r24,two_milliseconds.1817
+ 791 0300 9091 0000 		lds r25,two_milliseconds.1817+1
+ 792 0304 843F      		cpi r24,-12
+ 793 0306 9140      		sbci r25,1
+ 794 0308 00F0      		brlo .L28
   98:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          case clockrun:
- 790               	.LM106:
- 791 0308 8091 0000 		lds r24,clockstat
- 792 030c 8230      		cpi r24,lo8(2)
- 793 030e 01F0      		breq .L39
- 794 0310 00F4      		brsh .L40
- 795 0312 8130      		cpi r24,lo8(1)
- 796 0314 01F4      		brne .L38
+ 796               	.LM106:
+ 797 030a 8091 0000 		lds r24,clockstat
+ 798 030e 8230      		cpi r24,lo8(2)
+ 799 0310 01F0      		breq .L39
+ 800 0312 00F4      		brsh .L40
+ 801 0314 8130      		cpi r24,lo8(1)
+ 802 0316 01F4      		brne .L38
  100:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          break;
- 798               	.LM107:
- 799 0316 0E94 0000 		call inc_seconds
+ 804               	.LM107:
+ 805 0318 0E94 0000 		call inc_seconds
  101:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          
- 801               	.LM108:
- 802 031a 00C0      		rjmp .L38
- 803               	.L40:
+ 807               	.LM108:
+ 808 031c 00C0      		rjmp .L38
+ 809               	.L40:
   98:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          case clockrun:
- 805               	.LM109:
- 806 031c 8330      		cpi r24,lo8(3)
- 807 031e 01F0      		breq .L42
- 808 0320 8430      		cpi r24,lo8(4)
- 809 0322 01F4      		brne .L38
+ 811               	.LM109:
+ 812 031e 8330      		cpi r24,lo8(3)
+ 813 0320 01F0      		breq .L42
+ 814 0322 8430      		cpi r24,lo8(4)
+ 815 0324 01F4      		brne .L38
  111:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****                  
- 811               	.LM110:
- 812 0324 0E94 0000 		call display_intensity
+ 817               	.LM110:
+ 818 0326 0E94 0000 		call display_intensity
  113:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****                  
- 814               	.LM111:
- 815 0328 00C0      		rjmp .L38
- 816               	.L39:
+ 820               	.LM111:
+ 821 032a 00C0      		rjmp .L38
+ 822               	.L39:
  104:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****             clockstat = voltdisp;  //go to the mode where I'l wait for the button to have been rele
- 818               	.LM112:
- 819 032a 0E94 0000 		call read_ADC
- 820 032e 0E94 0000 		call display_volts
+ 824               	.LM112:
+ 825 032c 0E94 0000 		call read_ADC
+ 826 0330 0E94 0000 		call display_volts
  105:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****          break;
- 822               	.LM113:
- 823 0332 83E0      		ldi r24,lo8(3)
- 824 0334 00C0      		rjmp .L60
- 825               	.L42:
+ 828               	.LM113:
+ 829 0334 83E0      		ldi r24,lo8(3)
+ 830 0336 00C0      		rjmp .L60
+ 831               	.L42:
  117:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****             setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting 
- 827               	.LM114:
- 828 0336 2091 0000 		lds r18,butstat
- 829 033a 8091 0000 		lds r24,cyclesinstat
- 830 033e 9091 0000 		lds r25,cyclesinstat+1
- 831 0342 2223      		tst r18
- 832 0344 01F0      		breq .L44
+ 833               	.LM114:
+ 834 0338 2091 0000 		lds r18,butstat
+ 835 033c 8091 0000 		lds r24,cyclesinstat
+ 836 0340 9091 0000 		lds r25,cyclesinstat+1
+ 837 0344 2223      		tst r18
+ 838 0346 01F0      		breq .L44
  117:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****             setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting 
- 834               	.LM115:
- 835 0346 8031      		cpi r24,16
- 836 0348 9742      		sbci r25,39
- 837 034a 00F0      		brlo .L38
+ 840               	.LM115:
+ 841 0348 8031      		cpi r24,16
+ 842 034a 9742      		sbci r25,39
+ 843 034c 00F0      		brlo .L38
  118:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****             } else if (!butstat && (cyclesinstat >= 0x4E20)){
- 839               	.LM116:
- 840 034c 81E0      		ldi r24,lo8(1)
- 841 034e 0E94 0000 		call setsleepstat
- 842 0352 00C0      		rjmp .L38
- 843               	.L44:
+ 845               	.LM116:
+ 846 034e 81E0      		ldi r24,lo8(1)
+ 847 0350 0E94 0000 		call setsleepstat
+ 848 0354 00C0      		rjmp .L38
+ 849               	.L44:
  119:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****                 clockstat = intenset; } //if the button's been down for 4 seconds and we're in this
- 845               	.LM117:
- 846 0354 8032      		cpi r24,32
- 847 0356 9E44      		sbci r25,78
- 848 0358 00F0      		brlo .L38
+ 851               	.LM117:
+ 852 0356 8032      		cpi r24,32
+ 853 0358 9E44      		sbci r25,78
+ 854 035a 00F0      		brlo .L38
  120:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
- 850               	.LM118:
- 851 035a 84E0      		ldi r24,lo8(4)
- 852               	.L60:
- 853 035c 8093 0000 		sts clockstat,r24
- 854               	.L38:
+ 856               	.LM118:
+ 857 035c 84E0      		ldi r24,lo8(4)
+ 858               	.L60:
+ 859 035e 8093 0000 		sts clockstat,r24
+ 860               	.L38:
  125:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c ****     }
- 856               	.LM119:
- 857 0360 1092 0000 		sts two_milliseconds.1818+1,__zero_reg__
- 858 0364 1092 0000 		sts two_milliseconds.1818,__zero_reg__
- 859               	.L28:
- 860               	/* epilogue start */
+ 862               	.LM119:
+ 863 0362 1092 0000 		sts two_milliseconds.1817+1,__zero_reg__
+ 864 0366 1092 0000 		sts two_milliseconds.1817,__zero_reg__
+ 865               	.L28:
+ 866               	/* epilogue start */
  128:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/timer.c **** 
- 862               	.LM120:
- 863 0368 FF91      		pop r31
- 864 036a EF91      		pop r30
- 865 036c CF91      		pop r28
- 866 036e BF91      		pop r27
- 867 0370 AF91      		pop r26
- 868 0372 9F91      		pop r25
- 869 0374 8F91      		pop r24
- 870 0376 7F91      		pop r23
- 871 0378 6F91      		pop r22
- 872 037a 5F91      		pop r21
- 873 037c 4F91      		pop r20
- 874 037e 3F91      		pop r19
- 875 0380 2F91      		pop r18
- 876 0382 1F91      		pop r17
- 877 0384 0F91      		pop r16
- 878 0386 0F90      		pop r0
- 879 0388 0FBE      		out __SREG__,r0
- 880 038a 0F90      		pop r0
- 881 038c 1F90      		pop r1
- 882 038e 1895      		reti
- 888               	.Lscope10:
- 889               		.local	two_hun_mics.1817
- 890               		.comm	two_hun_mics.1817,1,1
- 891               		.local	two_milliseconds.1818
- 892               		.comm	two_milliseconds.1818,2,1
- 893               		.local	cyclesinstat
- 894               		.comm	cyclesinstat,2,1
- 895               		.local	intensity
- 896               		.comm	intensity,1,1
- 897               		.data
- 900               	turnoff_arm:
- 901 0000 01        		.byte	1
- 904               	clockstat:
- 905 0001 01        		.byte	1
- 906               		.local	fallarm
- 907               		.comm	fallarm,1,1
- 908               		.local	laststat
- 909               		.comm	laststat,1,1
- 910               		.local	butstat
- 911               		.comm	butstat,1,1
- 912               		.local	placeholder
- 913               		.comm	placeholder,1,1
- 914               		.local	digits
- 915               		.comm	digits,4,1
- 916               	.global	numbers
- 919               	numbers:
- 920 0002 D7        		.byte	-41
- 921 0003 14        		.byte	20
- 922 0004 E6        		.byte	-26
- 923 0005 B6        		.byte	-74
- 924 0006 35        		.byte	53
- 925 0007 B3        		.byte	-77
- 926 0008 F3        		.byte	-13
- 927 0009 16        		.byte	22
- 928 000a F7        		.byte	-9
- 929 000b B7        		.byte	-73
- 930 000c 00        		.byte	0
- 931 000d E1        		.byte	-31
- 932 000e E1        		.byte	-31
- 933 000f F0        		.byte	-16
- 934 0010 F1        		.byte	-15
- 945               		.text
- 947               	.Letext0:
- 948               		.ident	"GCC: (GNU) 4.9.3"
- 949               	.global __do_copy_data
- 950               	.global __do_clear_bss
+ 868               	.LM120:
+ 869 036a FF91      		pop r31
+ 870 036c EF91      		pop r30
+ 871 036e CF91      		pop r28
+ 872 0370 BF91      		pop r27
+ 873 0372 AF91      		pop r26
+ 874 0374 9F91      		pop r25
+ 875 0376 8F91      		pop r24
+ 876 0378 7F91      		pop r23
+ 877 037a 6F91      		pop r22
+ 878 037c 5F91      		pop r21
+ 879 037e 4F91      		pop r20
+ 880 0380 3F91      		pop r19
+ 881 0382 2F91      		pop r18
+ 882 0384 1F91      		pop r17
+ 883 0386 0F91      		pop r16
+ 884 0388 0F90      		pop r0
+ 885 038a 0FBE      		out __SREG__,r0
+ 886 038c 0F90      		pop r0
+ 887 038e 1F90      		pop r1
+ 888 0390 1895      		reti
+ 894               	.Lscope10:
+ 895               		.local	placeholder.1826
+ 896               		.comm	placeholder.1826,1,1
+ 897               		.local	two_hun_mics.1816
+ 898               		.comm	two_hun_mics.1816,1,1
+ 899               		.local	two_milliseconds.1817
+ 900               		.comm	two_milliseconds.1817,2,1
+ 901               		.local	cyclesinstat
+ 902               		.comm	cyclesinstat,2,1
+ 903               		.local	intensity
+ 904               		.comm	intensity,1,1
+ 905               		.data
+ 908               	turnoff_arm:
+ 909 0000 01        		.byte	1
+ 912               	clockstat:
+ 913 0001 01        		.byte	1
+ 914               		.local	fallarm
+ 915               		.comm	fallarm,1,1
+ 916               		.local	laststat
+ 917               		.comm	laststat,1,1
+ 918               		.local	butstat
+ 919               		.comm	butstat,1,1
+ 920               		.local	digits
+ 921               		.comm	digits,4,1
+ 922               	.global	numbers
+ 925               	numbers:
+ 926 0002 D7        		.byte	-41
+ 927 0003 14        		.byte	20
+ 928 0004 E6        		.byte	-26
+ 929 0005 B6        		.byte	-74
+ 930 0006 35        		.byte	53
+ 931 0007 B3        		.byte	-77
+ 932 0008 F3        		.byte	-13
+ 933 0009 16        		.byte	22
+ 934 000a F7        		.byte	-9
+ 935 000b B7        		.byte	-73
+ 936 000c 00        		.byte	0
+ 937 000d E1        		.byte	-31
+ 938 000e E1        		.byte	-31
+ 939 000f F0        		.byte	-16
+ 940 0010 F1        		.byte	-15
+ 950               		.text
+ 952               	.Letext0:
+ 953               		.ident	"GCC: (GNU) 4.9.3"
+ 954               	.global __do_copy_data
+ 955               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 timer.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:129    .text:0000000000000000 timer0Init
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:165    .text:0000000000000018 initialize_intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:894    .bss:0000000000000005 intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:182    .text:000000000000001e next_digit
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:911    .bss:0000000000000009 placeholder
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:913    .bss:000000000000000a digits
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:919    .data:0000000000000002 numbers
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:904    .data:0000000000000001 clockstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:290    .text:00000000000000a8 timeequals0
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:314    .text:00000000000000b6 shut_r_down
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:896    .bss:0000000000000006 fallarm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:900    .data:0000000000000000 turnoff_arm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:892    .bss:0000000000000003 cyclesinstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:410    .text:0000000000000114 inc_seconds
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:486    .text:0000000000000170 display_batt
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:515    .text:0000000000000186 display_volts
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:559    .text:00000000000001b8 display_intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:595    .text:00000000000001de __vector_14
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:909    .bss:0000000000000008 butstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:907    .bss:0000000000000007 laststat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cctguh06.s:890    .bss:0000000000000001 two_milliseconds.1818
-                             .bss:0000000000000000 two_hun_mics.1817
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:129    .text:0000000000000000 timer0Init
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:165    .text:0000000000000018 initialize_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:902    .bss:0000000000000006 intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:182    .text:000000000000001e next_digit
+                             .bss:0000000000000000 placeholder.1826
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:919    .bss:000000000000000a digits
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:925    .data:0000000000000002 numbers
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:912    .data:0000000000000001 clockstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:291    .text:00000000000000a8 inc_seconds
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:372    .text:0000000000000106 timeequals0
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:396    .text:0000000000000114 shut_r_down
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:904    .bss:0000000000000007 fallarm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:908    .data:0000000000000000 turnoff_arm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:900    .bss:0000000000000004 cyclesinstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:492    .text:0000000000000172 display_batt
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:521    .text:0000000000000188 display_volts
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:565    .text:00000000000001ba display_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:601    .text:00000000000001e0 __vector_14
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:917    .bss:0000000000000009 butstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:915    .bss:0000000000000008 laststat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:898    .bss:0000000000000002 two_milliseconds.1817
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:896    .bss:0000000000000001 two_hun_mics.1816
 
 UNDEFINED SYMBOLS
 setsleepstat

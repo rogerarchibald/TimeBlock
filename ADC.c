@@ -1,6 +1,6 @@
 /*
  * ADC.c
- * Will read the voltage on ADC7 which is the batter voltage on display.  Use internal 1.1V reference and note that there's a divide-by-two input
+ * Will read the voltage on ADC7 which is the batter voltage on display.  Use internal 1.1V reference and note that there's a divide-by-three input
  *8MHZ clock input /x64 prescaler = 125Khz clock which is perfect
  * Created: 6/1/16 8:04:17 PM
  *  Author: Roger

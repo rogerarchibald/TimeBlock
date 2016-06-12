@@ -16,7 +16,6 @@
 
 u8 numbers[] = {0xD7, 0x14, 0xE6, 0xB6, 0x35, 0xB3, 0xF3, 0x16, 0xF7, 0xB7, 0x00, 0xE1, 0xE1, 0xF0, 0xF1};    //array corresponding to bitfields for values 0-9.  index 10 is all zeros. 11-14 are letters 'batt'
 static u8 digits[] = {0,0,0,0}; //these are actually the values of the 4 digits.  Will use these to point to values in array above to drive the LED cathode bjt's
-static u8 placeholder = 0;  //will cycle from 0-3 and repeat.  Will determine which of the 4 P-ch FETS for the anodes is active.
 static u8 butstat = 0;	//will use this as a boolean to check the stat of the button.
 static u8 laststat = 0;	//will use this to check current vs previous status of the button to know if it has changed
 static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set this hi.  it's my debouncer
@@ -36,6 +35,7 @@ void timer0Init(void){
     
 }
 
+//called from main prior to initializing timer.  'intense' will be grabbed based on what's stored in EEPROM.
 void initialize_intensity (u8 intense){
     intensity = intense;
 }
@@ -87,7 +87,7 @@ ISR(TIMER0_COMPA_vect)	{
     if (two_hun_mics >= 10){
         next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking through
         two_hun_mics = 0;   //reset this value for next round
-        two_milliseconds ++;    //if I've made it through 20 cycles of 100uS, increment the 2mS cntr...Every 500 of these will increment the second count
+        two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cntr...Every 500 of these will increment the second count
 		
     }   //end of 2mS cycle
     
@@ -129,9 +129,9 @@ ISR(TIMER0_COMPA_vect)	{
 
 
 
-//this function will cycle the anodes of the diodes and turn the appropriate anode on (turning it off is accomplished in teh Timer0 overflow ISR.
+//this function will cycle the anodes of the diodes and turn the appropriate anode on (turning it off is accomplished in teh Timer0 overflow ISR dependant on intensity value
 void next_digit(void){
-
+    static u8 placeholder = 0;  //will cycle from 0-3 and repeat.  Will determine which of the 4 P-ch FETS for the anodes is active.
 	u8 dig_array[] = {0x04, 0x02, 0x01, 0x08};  //array to cycle through the different anodes
     placeholder ++;
     if(placeholder >= 4){
@@ -180,7 +180,7 @@ void inc_seconds(void){
     }
     if(digits[3] >= 10){
         digits[3] = 0;
-        shut_r_down();    //if we roll all the way over, shut r down
+        setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it down...if we roll all the way over, shut r down
     }
 }
 
@@ -237,7 +237,7 @@ adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colo
 	digits [3] = 10;	//10 is all off
 }
 
-
+//while clockstat == intenset, this will be called once a second.  Will increment teh intensity from 1-9 and display it.
 void display_intensity (void) {
     intensity ++;
     if(intensity == 10){intensity = 1;}
