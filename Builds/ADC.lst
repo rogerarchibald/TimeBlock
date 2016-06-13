@@ -238,7 +238,7 @@
  166               	.LBE5:
  167               	.LBE4:
  169               	.Ltext2:
-  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	_delay_ms(60);	//discharge the filter cap down to the divider level (25mS seems about right, 30 is
+  29:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	_delay_ms(60);	//discharge the filter cap down to the divider level 
   30:/Users/Roger/Library/Mobile Documents/com~apple~CloudDocs/Firmwares/XAVR/DOC_xavr/DOC_xavr/ADC.c **** 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
  171               	.LM7:
  172 001e 8091 7A00 		lds r24,122
@@ -300,13 +300,13 @@
  226               		.ident	"GCC: (GNU) 4.9.3"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ADC.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:118    .text:0000000000000000 init_ADC
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccMZzJj3.s:140    .text:000000000000000e read_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:118    .text:0000000000000000 init_ADC
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//cc7cQ8h3.s:140    .text:000000000000000e read_ADC
 
 UNDEFINED SYMBOLS
 __muluhisi3

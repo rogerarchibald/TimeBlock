@@ -70,13 +70,13 @@
  166               		.ident	"GCC: (GNU) 4.9.3"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 Intensity_cntrl.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:123    .text:0000000000000000 set_intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccBsoBiD.s:142    .text:000000000000000a get_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:123    .text:0000000000000000 set_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccOFUwIF.s:142    .text:000000000000000a get_intensity
 
 UNDEFINED SYMBOLS
 __eewr_byte_m328p

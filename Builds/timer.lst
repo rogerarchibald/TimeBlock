@@ -960,33 +960,33 @@
  955               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 timer.c
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:129    .text:0000000000000000 timer0Init
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:165    .text:0000000000000018 initialize_intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:902    .bss:0000000000000006 intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:182    .text:000000000000001e next_digit
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:129    .text:0000000000000000 timer0Init
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:165    .text:0000000000000018 initialize_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:902    .bss:0000000000000006 intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:182    .text:000000000000001e next_digit
                              .bss:0000000000000000 placeholder.1826
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:919    .bss:000000000000000a digits
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:925    .data:0000000000000002 numbers
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:912    .data:0000000000000001 clockstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:291    .text:00000000000000a8 inc_seconds
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:372    .text:0000000000000106 timeequals0
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:396    .text:0000000000000114 shut_r_down
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:904    .bss:0000000000000007 fallarm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:908    .data:0000000000000000 turnoff_arm
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:900    .bss:0000000000000004 cyclesinstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:492    .text:0000000000000172 display_batt
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:521    .text:0000000000000188 display_volts
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:565    .text:00000000000001ba display_intensity
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:601    .text:00000000000001e0 __vector_14
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:917    .bss:0000000000000009 butstat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:915    .bss:0000000000000008 laststat
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:898    .bss:0000000000000002 two_milliseconds.1817
-/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccng5MsB.s:896    .bss:0000000000000001 two_hun_mics.1816
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:919    .bss:000000000000000a digits
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:925    .data:0000000000000002 numbers
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:912    .data:0000000000000001 clockstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:291    .text:00000000000000a8 inc_seconds
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:372    .text:0000000000000106 timeequals0
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:396    .text:0000000000000114 shut_r_down
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:904    .bss:0000000000000007 fallarm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:908    .data:0000000000000000 turnoff_arm
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:900    .bss:0000000000000004 cyclesinstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:492    .text:0000000000000172 display_batt
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:521    .text:0000000000000188 display_volts
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:565    .text:00000000000001ba display_intensity
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:601    .text:00000000000001e0 __vector_14
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:917    .bss:0000000000000009 butstat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:915    .bss:0000000000000008 laststat
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:898    .bss:0000000000000002 two_milliseconds.1817
+/var/folders/5n/sn67s4dx5cj3x2ns4qywc93r0000gn/T//ccPWQsb8.s:896    .bss:0000000000000001 two_hun_mics.1816
 
 UNDEFINED SYMBOLS
 setsleepstat

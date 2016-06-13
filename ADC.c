@@ -26,7 +26,7 @@ uint16_t read_ADC (void){
 	uint32_t voltval = 0;
 	PORTC |= 0x10;	//turn on divider return FET
 	PORTD = 0;	//turn off all BJT's so that in the next line this delay of 60mS doesn't look like a glitch on display
-	_delay_ms(60);	//discharge the filter cap down to the divider level (25mS seems about right, 30 is a buffer)
+	_delay_ms(60);	//discharge the filter cap down to the divider level 
 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
 	ADCSRA |= 0xC0; //enable ADC and start conversion
 	while(!(ADCSRA & 0x10)){}	//kill time while waiting for conversion to end
