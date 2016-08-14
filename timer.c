@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include "DOC_head.h"
+#include <util/delay.h>
 #include "timer.h"
 #include "adc.h"
 #include "intensity_cntrl.h"
@@ -197,6 +198,7 @@ void timeequals0 (void){
 
 
 void shut_r_down(void){
+    
 	timeequals0();
 	TCCR0B = 0;		//kill timer
 	PORTD = 0;		//turn off NPNs
@@ -226,15 +228,16 @@ void display_batt(void){
 
 
 void display_volts (u16 adval){
-
+    
 //this is will display the voltage.
-adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colon as decimal place 
-	digits[0] = adval % 10;
+    adval /= 10;		//drop to x.yz volts.  will allow me to use the bottom of the colon as decimal place
+    digits[0] = adval % 10;
 	adval /= 10;
 	digits [1] = adval %10;
 	adval /= 10;
 	digits [2] = adval %10;
 	digits [3] = 10;	//10 is all off
+    
 }
 
 //while clockstat == intenset, this will be called once a second.  Will increment teh intensity from 1-9 and display it.

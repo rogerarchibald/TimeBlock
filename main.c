@@ -32,8 +32,8 @@ ISR(PCINT0_vect){
 
 
 int main(void)
-{ 
-	
+{
+
 DDRD = 0xFF;	//portD drives the digits of the 7-segment display
 PORTD = 0;		//initially kill output
 DDRC = 0x1F;	//PC4 = divider_control, PC0-3 = pass p-fets for digits
@@ -42,14 +42,11 @@ DDRB = 0xEE;	//PB0 = button_in, PB1 = TP1
 PORTB = 0;		//all off.	
 PCMSK0 |= 0x01;	//unmask PCINT0 which is the button.
 initialize_intensity (get_intensity());
+ADC_init();
 timer0Init();
-init_ADC();
 sei();	
 set_sleep_mode(SLEEP_MODE_IDLE);
-	
 
-	
-	
 	
 	
   

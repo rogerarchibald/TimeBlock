@@ -9,8 +9,7 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-
-void init_ADC(void);	//set up reference, mux etc but don't turn on ADC for battery power.
+void ADC_init(void);
 uint16_t read_ADC(void);
 
 
