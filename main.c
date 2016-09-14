@@ -5,6 +5,11 @@
  *This is the first rev of firmware to drive the timer for Doug's plane-clock.  It's a 4x7-Segment display that will just give a simple timer to start at the push of a button.  
  *The inputs are button and an analog input to give an indication of battery voltage (could also use this as a general purpose analog input if the board is powered off of uUSB connector).  
  *
+ *
+ *Currently working in the 'Rev3' branch of GIT repository.  this board is distinct in that it's got its own 1.225 Voltage reference which needs to be turned on by PC5 before its of any use.
+ *
+ *
+ *
  * Created: 5/23/16 7:35:33 PM
  * Author : Roger
  */ 
@@ -36,7 +41,7 @@ int main(void)
 
 DDRD = 0xFF;	//portD drives the digits of the 7-segment display
 PORTD = 0;		//initially kill output
-DDRC = 0x1F;	//PC4 = divider_control, PC0-3 = pass p-fets for digits
+DDRC = 0x3F;	//PC5 = bias for ADC reference, PC4 = divider_control, PC0-3 = pass p-fets for digits
 PORTC = 0;
 DDRB = 0xEE;	//PB0 = button_in, PB1 = TP1
 PORTB = 0;		//all off.	
