@@ -23,7 +23,9 @@ static u8 fallarm = 0;	//when the button has been detected hi for a minimum time
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
 static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
+u8 voltmeter = 1;    //boolean that'll be true if I'm working as a voltmeter
 static u16 cyclesinstat = 0;	//how many cycles have I been in this status
+
 
 
 //initialize timer0 with a 200uS rollover to trigger an ISR
@@ -55,6 +57,14 @@ ISR(TIMER0_COMPA_vect)	{
 	} else{	//count how many times I've been in this status
 		cyclesinstat = 0;
 	} //reset counter if the status has changed.
+    
+    
+    
+    
+    
+    if (!voltmeter){    //if I'm in clock mode as opposed to voltmeter mode
+    
+        
 	if ((cyclesinstat > 50) && laststat && turnoff_arm ){
 		fallarm = 1;
 		clockstat = clockrun;
@@ -71,6 +81,17 @@ ISR(TIMER0_COMPA_vect)	{
 			clockstat = batdisp;
 			turnoff_arm = 0;	//don't come back until this is re-armed at wakeup
 		}
+        
+        
+        
+    } else {  //end of what to skip if I'm in voltmeter mode
+        if (clockstat != intenset){
+        clockstat = batdisp;    //if I'm in voltmeter mode, just display the 'battery' voltage
+    }
+    }
+        
+        
+        
     if((clockstat == intenset) && butstat){
         set_intensity(intensity);
         timeequals0();
@@ -79,6 +100,9 @@ ISR(TIMER0_COMPA_vect)	{
     }
 	laststat = butstat;	//make sure laststat is up to speed for next round
 
+        
+ 
+    
 
     two_hun_mics ++;
     if (two_hun_mics >= intensity){ //once the intensity level is reached will kill the active LED
@@ -91,6 +115,8 @@ ISR(TIMER0_COMPA_vect)	{
         two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cntr...Every 500 of these will increment the second count
 		
     }   //end of 2mS cycle
+        
+  
     
 	
     if(two_milliseconds >=500){
@@ -104,6 +130,10 @@ ISR(TIMER0_COMPA_vect)	{
           case batdisp:
             display_volts (read_ADC()); //get the ADC value of the battery voltage and splash it up
             clockstat = voltdisp;  //go to the mode where I'l wait for the button to have been released for 2 seconds, and then start shutting it down
+                 if(voltmeter && !butstat && (cyclesinstat >= 0x4E20)){
+                     clockstat = intenset;
+                 } //if the button's been down for 4 seconds and we're in this mode, go into intensity setting mode.
+                
          break;
                  
                  
@@ -115,11 +145,12 @@ ISR(TIMER0_COMPA_vect)	{
                  
          
          case voltdisp:
-            if(butstat && (cyclesinstat >= 0x2710)){
+            
+            if(butstat && (cyclesinstat >= 0x2710) && (!voltmeter)){
             setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it down
             } else if (!butstat && (cyclesinstat >= 0x4E20)){
                 clockstat = intenset; } //if the button's been down for 4 seconds and we're in this mode, go into intensity setting mode.
-
+                 
          break; //shouldn't need to break out of here but why not
          }  //end of switch/case
         
@@ -149,7 +180,8 @@ void next_digit(void){
 		
 		break;
 		
-		case voltdisp:
+     case voltdisp:
+     case batdisp:
 		if (placeholder == 2){  //while displaying the voltage, set the lower dot of hte colon to be a cedimal point
 			PORTD |= 0x08;
 		}

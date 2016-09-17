@@ -12,6 +12,8 @@
 #include <util/delay.h>
 
 
+
+
 void ADC_init(void){
 ADMUX = 0x07;	//0 is to select the external voltage reference, 7 selects the input
 ADCSRA = 0x06;	//set prescaler to /64
@@ -21,20 +23,25 @@ ADCSRA = 0x06;	//set prescaler to /64
 
 uint16_t read_ADC (void){
 	uint32_t voltval = 0;
-    clr_tp1
-	PORTC |= 0x30;	//turn on divider return FET and ADC input bias
-	PORTD = 0;	//turn off all BJT's so that in the next line this delay of 70mS doesn't look like a glitch on display
+    extern u8 voltmeter;
+    PORTC |= 0x30;	//turn on divider return FET and ADC input bias
     ADCSRA |= (1 << ADEN);
+    if(!voltmeter){
+    PORTD = 0;	//turn off all BJT's so that in the next line this delay of 70mS doesn't look like a glitch on display
 	_delay_ms(70);	//discharge the filter cap down to the divider level
-    set_tp1
+    }   //this causes teh display to go dead/glitch when I'm in voltmeter mode
+  
 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
 	ADCSRA |= (1 << ADSC);  //start conversion
 	while(!(ADCSRA & 0x10)){}	//kill time while waiting for conversion to end
+    if(!voltmeter){
 	PORTC &= ~(0x30);//kill the FET  and voltage reference to conserve battery
+    ADCSRA &= 0x0F;  //disable the whole ADC but keep the prescaler settings for next time around
+    
+    }   //end of using wheter or not we're in 'voltmeter' mode to determine whether or not su use some of hte power-savng lines
     voltval = ADC;
 	voltval *= 358;	//convert ADC value to hundreds of mV when we're running a /5.12 divider
     voltval /= 100;	//convert ADC value to mV
-    ADCSRA &= 0x0F;  //disable the whole ADC but keep the prescaler settings for next time around
 	return voltval;
     
 	
