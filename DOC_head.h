@@ -33,11 +33,14 @@
 
 #define u8 uint8_t
 #define u16 uint16_t
-
+/*
 #define tog_tp1	{PORTB ^= 0x02;}
 #define set_tp1	{PORTB |= 0x02;}
 #define clr_tp1	{PORTB &= ~(0x02);}
-
+get rid of these macros since tp1 has been re-appropriated as the 'voltmeter select' input
+ */
+ 
+ 
 //function declaration to set flag that will shut it down.
 void setsleepstat (u8 newstat);	
 

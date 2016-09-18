@@ -31,7 +31,7 @@ volatile u8 gotosleep = 0;
 //servicing the ISR for button press PCINT0 to wake things up, nothing to do here.
 ISR(PCINT0_vect){
 	asm ("nop");
-	tog_tp1
+
 }
 
 
@@ -43,7 +43,7 @@ DDRD = 0xFF;	//portD drives the digits of the 7-segment display
 PORTD = 0;		//initially kill output
 DDRC = 0x3F;	//PC5 = bias for ADC reference, PC4 = divider_control, PC0-3 = pass p-fets for digits
 PORTC = 0;
-DDRB = 0xEE;	//PB0 = button_in, PB1 = TP1
+DDRB = 0xEC;	//PB0 = button_in, PB1 = voltmeter_select in
 PORTB = 0;		//all off.	
 PCMSK0 |= 0x01;	//unmask PCINT0 which is the button.
 initialize_intensity (get_intensity());
@@ -53,6 +53,9 @@ sei();
 set_sleep_mode(SLEEP_MODE_IDLE);
 
 	
+    if(PINB & 0x02){
+        set_voltmeter();
+    }
 	
   
     while (1) 

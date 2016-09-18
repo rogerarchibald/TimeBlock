@@ -23,7 +23,7 @@ static u8 fallarm = 0;	//when the button has been detected hi for a minimum time
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
 static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
-u8 voltmeter = 1;    //boolean that'll be true if I'm working as a voltmeter
+u8 voltmeter = 0;    //boolean that'll be true if I'm working as a voltmeter
 static u16 cyclesinstat = 0;	//how many cycles have I been in this status
 
 
@@ -42,6 +42,14 @@ void timer0Init(void){
 void initialize_intensity (u8 intense){
     intensity = intense;
 }
+
+
+//called from main when first checking 'voltmeter' input if that pin is hi.
+void set_voltmeter(void){
+    voltmeter = 1;
+}
+
+
 
 
 //Timer0 CompareA Interrupt
