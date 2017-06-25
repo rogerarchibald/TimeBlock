@@ -19,7 +19,7 @@ u8 numbers[] = {0xD7, 0x14, 0xE6, 0xB6, 0x35, 0xB3, 0xF3, 0x16, 0xF7, 0xB7, 0x00
 static u8 digits[] = {0,0,0,0}; //these are actually the values of the 4 digits.  Will use these to point to values in array above to drive the LED cathode bjt's
 static u8 butstat = 0;	//will use this as a boolean to check the stat of the button.
 static u8 laststat = 0;	//will use this to check current vs previous status of the button to know if it has changed
-static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (5mS) will set this hi.  it's my debouncer
+static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (10mS) will set this hi.  it's my debouncer
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
 static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
@@ -52,11 +52,10 @@ void set_voltmeter(void){
 
 
 
-//Timer0 CompareA Interrupt
+//Timer0 CompareA Interrupt, this will happen every 200uS
 ISR(TIMER0_COMPA_vect)	{
     static u8 two_hun_mics = 0;
     static u16 two_milliseconds = 0;
-	
 	
 	
 	butstat = (PINB & 0x01);
@@ -65,8 +64,6 @@ ISR(TIMER0_COMPA_vect)	{
 	} else{	//count how many times I've been in this status
 		cyclesinstat = 0;
 	} //reset counter if the status has changed.
-    
-    
     
     
     
@@ -91,14 +88,12 @@ ISR(TIMER0_COMPA_vect)	{
 		}
         
         
-        
     } else {  //end of what to skip if I'm in voltmeter mode
         if (clockstat != intenset){
         clockstat = batdisp;    //if I'm in voltmeter mode, just display the 'battery' voltage
     }
     }
-        
-        
+    
         
     if((clockstat == intenset) && butstat){
         set_intensity(intensity);
@@ -110,7 +105,6 @@ ISR(TIMER0_COMPA_vect)	{
 
         
  
-    
 
     two_hun_mics ++;
     if (two_hun_mics >= intensity){ //once the intensity level is reached will kill the active LED
@@ -126,7 +120,6 @@ ISR(TIMER0_COMPA_vect)	{
         
   
     
-	
     if(two_milliseconds >=500){
         
       //  what to do every second will vary depending on status of 'clockstat'
@@ -144,14 +137,12 @@ ISR(TIMER0_COMPA_vect)	{
                 
          break;
                  
-                 
           case intenset:
           
                  display_intensity();
                  
                  break;
                  
-         
          case voltdisp:
             
             if(butstat && (cyclesinstat >= 0x2710) && (!voltmeter)){
@@ -187,9 +178,16 @@ void next_digit(void){
 		}	//set the colon when we have an odd number
 		
 		break;
-		
+
+    case batdisp:
+         if (voltmeter && (placeholder == 2)){  //When in 'voltmeter' mode, 'clockstat' lives in batdisp unless the intensity is being set.  This will allow it to display the decimal
+             PORTD |= 0x08;
+         }
+         break;
+         
+         
      case voltdisp:
-     case batdisp:
+
 		if (placeholder == 2){  //while displaying the voltage, set the lower dot of hte colon to be a cedimal point
 			PORTD |= 0x08;
 		}

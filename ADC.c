@@ -40,7 +40,7 @@ uint16_t read_ADC (void){
     
     }   //end of using wheter or not we're in 'voltmeter' mode to determine whether or not su use some of hte power-savng lines
     voltval = ADC;
-	voltval *= 358;	//convert ADC value to hundreds of mV when we're running a /5.12 divider
+	voltval *= 410;	//convert ADC value to hundreds of mV when we're running a /3.43 divider
     voltval /= 100;	//convert ADC value to mV
 	return voltval;
     
@@ -51,11 +51,10 @@ uint16_t read_ADC (void){
 /*
 The multiplication of 'voltval' by some coefficient is as follows:
  
- 10-bit ADC = range of 0-1024.  voltval coefficient = 1.1/1024 * divider.  if divider = /3, coefficient = 1.1/1024 * 3 = .00322 (avoiding floats by multiplying by 322 then dividing by 100).
+ 10-bit ADC = range of 0-1024.  voltval coefficient = 1.225/1024 * divider.  if divider = /3.43, coefficient = 1.225/1024 * 3.43 = .00410 (avoiding floats by multiplying by 410 then dividing by 100).
  
- if divider is 100k - 24.3k... 24.3k/124.3k = .195    1/.195 = 5.12   1.1/1024 * 5.12 = .0055 (avoid floats by multiplying by 550 then dividing by 100)
+ if divider is 24.3k -> 10k...
 
- When using 2k - 1k divider with 1.225V reference, I've got 1.225/1024 * 3 = .0358 (avoid floats by multiplying by 358 then dividing by 100)
  
 
 */
