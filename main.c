@@ -6,7 +6,8 @@
  *The inputs are button and an analog input to give an indication of battery voltage (could also use this as a general purpose analog input if the board is powered off of uUSB connector).  
  *
  *
- *Currently working in the 'Rev3' branch of GIT repository.  this board is distinct in that it's got its own 1.225 Voltage reference which needs to be turned on by PC5 before its of any use.
+ *Went to a newer design board with a 2.5V reference for the ADC and jumpers to allow selection of voltmeter or timer.  In Timer mode when running off battery it's critical to disable hte BOD while sleeping or else the battery won't last long due to the BOD consumption.  With an 
+ *AtMega328 this requires disabling the BOD (Extended fuse = 0xFF).  With an AtMega328P it's possible to run the BOD but disable it while in deep sleep to 
  *
  *
  *

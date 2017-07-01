@@ -1,7 +1,7 @@
 /*
  * ADC.c
- * Will read the voltage on ADC7 which is the batter voltage on display.  Using external 1.25V reference since the internal 1.1V reference is too sloppy to use this as a voltmeter in the future.
- *8MHZ clock input /x64 prescaler = 125Khz clock which is perfect
+ * Will read the voltage on ADC7 which is the battery voltage on display.  Using external 2.5V reference since the internal 1.1V reference is too sloppy to use this as a voltmeter in the future.
+ *4MHZ clock input /x64 prescaler = 64Khz clock for ADC
  * Created: 6/1/16 8:04:17 PM
  *  Author: Roger
  */ 
@@ -40,7 +40,8 @@ uint16_t read_ADC (void){
     
     }   //end of using wheter or not we're in 'voltmeter' mode to determine whether or not su use some of hte power-savng lines
     voltval = ADC;
-	voltval *= 410;	//convert ADC value to hundreds of mV when we're running a /3.43 divider
+    voltval *= 424;	//convert ADC value to hundreds of mV when running a /1.736 divider and a 2.5V reference
+    //voltval *= 1725;	//convert ADC value to hundreds of mV when running a /7.06 divider and a 2.5V reference
     voltval /= 100;	//convert ADC value to mV
 	return voltval;
     
@@ -51,10 +52,13 @@ uint16_t read_ADC (void){
 /*
 The multiplication of 'voltval' by some coefficient is as follows:
  
- 10-bit ADC = range of 0-1024.  voltval coefficient = 1.225/1024 * divider.  if divider = /3.43, coefficient = 1.225/1024 * 3.43 = .00410 (avoiding floats by multiplying by 410 then dividing by 100).
+ 10-bit ADC = range of 0-1024.  voltval coefficient = 2.5/1023 * divider.  if divider = /1.736, coefficient = 1.225/1023 * 1.76 = .00424 (avoiding floats by multiplying by 424 then dividing by 100).
  
- if divider is 24.3k -> 10k...
 
+ 
+ With the 2.5V reference, voltval coef = 2.5/1023 * divideby
+ for Rtop = 24.3K/Rbot = 33k, divideby = 1.736.....0.00424
+ for Rtop = 200k/Rbot = 33k, divideby = 7.06......0.01725
  
 
 */

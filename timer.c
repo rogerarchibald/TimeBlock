@@ -274,7 +274,12 @@ void display_volts (u16 adval){
 	digits [1] = adval %10;
 	adval /= 10;
 	digits [2] = adval %10;
-	digits [3] = 10;	//10 is all off
+    if(adval > 9){          //if the voltage is > 9 (i.e. I need the "10's" digit
+    adval /= 10;
+    digits [3] = adval; //divide by 10 so I can put the proper digit in the "10's" spot.
+    }else{
+        digits[3] = 10; //10 is = 0x00 so it will just be off. 
+    }   //end of what to do if adval is showing a voltage > 9
     
 }
 
