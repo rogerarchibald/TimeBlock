@@ -115,7 +115,11 @@ ISR(TIMER0_COMPA_vect)	{
         next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking through
         two_hun_mics = 0;   //reset this value for next round
         two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cntr...Every 500 of these will increment the second count
-		
+        if((two_milliseconds == 100) && (clockstat == clockrun)){
+            ADCSRA |= (1 << ADIF);	//clear interrupt flag before enabling interrupt
+            ADCSRA |= (1 << ADIE); //enable interrupts
+            ADCSRA |= (1 << ADEN)|(1 << ADSC);  //Enable ADC and start ADC conversion, an interrupt will be generated to deal with the result.
+        }
     }   //end of 2mS cycle
         
   
@@ -203,7 +207,7 @@ void next_digit(void){
 
 //function to actually increment the time.
 void inc_seconds(void){
-	
+    check3V();  //once a second check to see if the battery is below 3V...if so shut the whole thing down.
     digits[0] ++;
     if(digits[0] >= 10){
         digits[0] = 0;
@@ -242,6 +246,7 @@ void shut_r_down(void){
 	PORTD = 0;		//turn off NPNs
 	PORTC |= 0x0F;	//turn off P-ch
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);	//going to deep sleep
+    sei();  //re-enable interrupts...it's possible that I got here from within an ISR an so interrupts would be disabled
 	PCIFR |= 0x01;	//clear interrupt flag
 	PCICR |= 0x01;	//enable Pin Change Interrupt
 	sleep_mode();

@@ -50,12 +50,16 @@ PCMSK0 |= 0x01;	//unmask PCINT0 which is the button.
 initialize_intensity (get_intensity());
 ADC_init();
 timer0Init();
-sei();	
+sei();
 set_sleep_mode(SLEEP_MODE_IDLE);
 
 	
     if(PINB & 0x02){
         set_voltmeter();
+        defcoef(0); //define coefficient for dealing with the ADC readings, this is done in ADC
+    }else{
+        check3V(); //If I'm in timer mode check if voltage is below 3V and if so, shut the whole thing down...the LiPo doesn't like to go any lower.
+        defcoef(1); //define coefficient for dealing with the ADC readings, this is done in ADC
     }
 	
   
