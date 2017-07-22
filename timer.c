@@ -22,7 +22,7 @@ static u8 laststat = 0;	//will use this to check current vs previous status of t
 static u8 fallarm = 0;	//when the button has been detected hi for a minimum time (10mS) will set this hi.  it's my debouncer
 static u8 clockstat = clockrun;	//enumerated in header file.  will tell timer overflow isr what/how to display.
 static u8 turnoff_arm = 1;	//will kill this when reading the ADC and then re-arm upon wakeup.
-static u8 intensity;    //value from 0-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
+static u8 intensity;    //value from 1-9 to control of intensity of display, will be changeable on the fly with vlaue stored in EEPROM
 u8 voltmeter = 0;    //boolean that'll be true if I'm working as a voltmeter
 static u16 cyclesinstat = 0;	//how many cycles have I been in this status
 
@@ -115,7 +115,8 @@ ISR(TIMER0_COMPA_vect)	{
         next_digit();   //function to cycle the 4 LSB's of PORTC to ensure that we're walking through
         two_hun_mics = 0;   //reset this value for next round
         two_milliseconds ++;    //if I've made it through 10 cycles of 200uS, increment the 2mS cntr...Every 500 of these will increment the second count
-        if((two_milliseconds == 100) && (clockstat == clockrun)){
+        //following lines are to check the battery level.  every 1 second when the clock is incremented the voltage reference/divider are turned on.  Here I'll start the conversion, and the ADC ISR will deal with the results
+        if((two_milliseconds == 10) && (clockstat == clockrun)){
             ADCSRA |= (1 << ADIF);	//clear interrupt flag before enabling interrupt
             ADCSRA |= (1 << ADIE); //enable interrupts
             ADCSRA |= (1 << ADEN)|(1 << ADSC);  //Enable ADC and start ADC conversion, an interrupt will be generated to deal with the result.
@@ -172,8 +173,11 @@ void next_digit(void){
     if(placeholder >= 4){
         placeholder = 0;
     }
+    if((placeholder == 3) && digits[placeholder] == 0 ){ //keep the most significant digit off if it's a zero.
+        PORTD = 0;
+    }else{
     PORTD = numbers[digits[placeholder]];   //set up bjts on cathodes.
-	
+    }
 	
  switch (clockstat){	//this switch will determine the colon/decimal place
 	 case clockrun:
@@ -207,7 +211,16 @@ void next_digit(void){
 
 //function to actually increment the time.
 void inc_seconds(void){
-    check3V();  //once a second check to see if the battery is below 3V...if so shut the whole thing down.
+    check3V();  //once a second check to see if the battery is below 3V and if so shut the whole thing down.  At this point just enabling the ADC reference and divider, actual measurement is initialized X mS later in the ISR
+  
+    //uncomment the following lines to set a constant value of 5555 on the timer.  this is just ot give a consistent current draw for debugging
+/*
+    for(u8 i = 0; i < 4; i++){
+        digits[i] = 5;
+    }
+    return;
+*/
+    
     digits[0] ++;
     if(digits[0] >= 10){
         digits[0] = 0;
@@ -225,6 +238,7 @@ void inc_seconds(void){
         digits[3] = 0;
         setsleepstat(1);   //this will set a flag in a function in main.c to initiate shutting it down...if we roll all the way over, shut r down
     }
+    
 }
 
 
@@ -279,12 +293,8 @@ void display_volts (u16 adval){
 	digits [1] = adval %10;
 	adval /= 10;
 	digits [2] = adval %10;
-    if(adval > 9){          //if the voltage is > 9 (i.e. I need the "10's" digit
     adval /= 10;
     digits [3] = adval; //divide by 10 so I can put the proper digit in the "10's" spot.
-    }else{
-        digits[3] = 10; //10 is = 0x00 so it will just be off. 
-    }   //end of what to do if adval is showing a voltage > 9
     
 }
 

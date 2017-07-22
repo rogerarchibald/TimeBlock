@@ -31,8 +31,8 @@ void set_voltmeter(void);
 
 //the status will determine what's displayed.  This is checked in the ISR before updating time and is updated based on button presses or cycling through the batt display.
 enum statusflag {
-	clockoff,
-	clockrun,
+	clockoff,   //clockoff is just clock not running
+	clockrun,   //just what it says, a running clock
 	batdisp,
 	voltdisp,
     intenset

@@ -16,8 +16,8 @@
 static u16 coef;
 
 
-#define coefTimer ((2.5/1023)/(33/(33+24.3))*100000)
-#define coefVoltMeter 1725 //compiler doesn't like the math, denomimator of divider is too big((2.5/1023)*100000)/(33/(33+200))
+#define coefTimer ((2.5/1024)/(33/(33+24.3))*100000)
+#define coefVoltMeter 1724 //compiler doesn't like the math, denomimator of divider is too big((2.5/1024)*100000)/(33/(33+200))
 
 
 
@@ -42,14 +42,13 @@ uint16_t read_ADC (void){
 	uint32_t voltval = 0;
     extern u8 voltmeter;
     PORTC |= 0x30;	//turn on divider return FET and ADC input bias
-    ADCSRA |= (1 << ADEN);
     if(!voltmeter){
     PORTD = 0;	//turn off all BJT's so that in the next line this delay of 70mS doesn't look like a glitch on display
 	_delay_ms(20);	//discharge the filter cap down to the divider level
     }   //this causes teh display to go dead/glitch when I'm in voltmeter mode
   
 	ADCSRA |= 0x10;	//clear interrupt flag before starting a conversion
-	ADCSRA |= (1 << ADSC);  //start conversion
+	ADCSRA |= (1 << ADSC) | (1 << ADEN);  //Enable ADC and start conversion
 	while(!(ADCSRA & 0x10)){}	//kill time while waiting for conversion to end
     if(!voltmeter){
 	PORTC &= ~(0x30);//kill the FET  and voltage reference to conserve battery
